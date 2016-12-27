@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_press"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/content_text_spacing"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/dividerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameFamily"
+                style="@style/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+            <!--<TextView
+                android:id="@+id/listDeviceName"
+                android:layout_width="wrap_content"
+                style="@style/textView"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:singleLine="true"
+                android:layout_height="wrap_content" />-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/content_text_spacing"
+                android:background="@android:color/darker_gray" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dividerLayout"
+            android:paddingTop="@dimen/activity_horizontal_margin">
+
+            <com.android.keepfocus.fancycoverflow.FancyCoverFlow
+                android:id="@+id/fancyCoverFlow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/top_bar_height"
+            android:gravity="center">
+
+            <com.android.keepfocus.utils.HorizontalListView
+                android:id="@+id/listMember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/transparent"
+                android:scrollbars="horizontal">
+            </com.android.keepfocus.utils.HorizontalListView>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/text_no_group"
+            style="@style/no_item_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal|clip_vertical" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_family_layout_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_white_color"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:text="Schedules "
+                android:textColor="@color/color_text_title"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_add_schedule"
+                android:layout_width="@dimen/size_button_add_schedule"
+                android:layout_height="@dimen/size_button_add_schedule"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/icon_add"
+                android:clickable="true"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
+
+        <!--       <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Schedule "
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15dp" />
+
+                   <EditText
+                        android:id="@+id/editMemberName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/layout_border"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true" />
+                </LinearLayout>-->
+
+
+        <ListView
+            android:id="@+id/listTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:divider="@color/transparent"
+            android:dividerHeight="5dp"
+            android:orientation="horizontal"
+            android:scrollbars="none"></ListView>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

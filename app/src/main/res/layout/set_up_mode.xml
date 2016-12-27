@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3B5998"
+    android:orientation="vertical"
+    android:weightSum="7">
+
+    <ImageView
+        android:id="@+id/img_cavnus_setup_mode"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_cavnus_height"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/cavnus_bg"
+ />
+
+    <LinearLayout
+        android:id="@+id/layout_setup_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/btn_parent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/button_choose_mode_margin_top"
+            android:background="@drawable/btn_border"
+            android:gravity="center"
+            android:text="PARENT DEVICE"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_additional_parent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/btn_border"
+            android:gravity="center"
+            android:text="ADDITIONAL PARENT DEVICE"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_child"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/btn_border"
+            android:gravity="center"
+            android:text="CHILD DEVICE"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/terms_link"
+        style="@style/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/layout_setup_mode"
+        android:layout_marginTop="@dimen/term_condition_margin_top"
+        android:autoLink="web"
+        android:gravity="center"
+        android:linksClickable="true"
+        android:text="@string/term_link"
+        android:textColor="#fafafa"
+        android:textSize="15sp" />
+
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<resources>
+    <dimen name="button_choose_mode_margin_top">70dp</dimen>
+    <dimen name="button_height">60dp</dimen>
+    <dimen name="term_condition_margin_top">80dp</dimen>
+    <dimen name="form_login_margin">60dp</dimen>
+    <dimen name="button_login_margin_top">30dp</dimen>
+    <dimen name="button_space_padding">50dp</dimen>
+    <dimen name="image_cavnus_height">420dp</dimen>
+    <dimen name="bottom_family_layout_height">500dp</dimen>
+    <dimen name="margin_device_radial">30dp</dimen>
+
+
+    <dimen name="text_size_family_id">40sp</dimen>
+    <dimen name="text_size_add_member_guide">20dp</dimen>
+    <dimen name="circle_view_size">250dp</dimen>
+    <dimen name="circle_view_stroke_width_left_right">69.5dp</dimen>
+    <dimen name="circle_view_stroke_width_center">69.5dp</dimen>
+    <dimen name="circle_view_stroke_dashGap">380dp</dimen>
+    <dimen name="circle_view_stroke_dashWidth">128dp</dimen>
+
+</resources>

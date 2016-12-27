@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:coverflow="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:background="@color/gray_press"
+        android:paddingTop="@dimen/content_text_spacing"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/dividerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/nameFamily"
+                android:layout_width="wrap_content"
+                style="@style/textTitle"
+                android:textStyle="bold"
+                android:textSize="22dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/listDeviceName"
+                android:layout_width="wrap_content"
+                style="@style/textView"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:singleLine="true"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/content_text_spacing"
+                android:background="@android:color/darker_gray"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/dividerLayout"
+            android:id="@+id/layout_list"
+            android:layout_width="match_parent"
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content">
+
+            <com.android.keepfocus.fancycoverflow.FancyCoverFlow
+                android:id="@+id/fancyCoverFlow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/top_bar_height"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+
+            <com.android.keepfocus.utils.HorizontalListView
+                android:id="@+id/listTwoFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/transparent"
+                android:scrollbars="horizontal">
+            </com.android.keepfocus.utils.HorizontalListView>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/text_no_group"
+            style="@style/no_item_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal|clip_vertical" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_family_layout_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/layout_border"
+        android:orientation="vertical">
+       <!-- <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="@string/add_member"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:paddingTop="8dp"
+            android:paddingLeft="8dp"
+            android:textColor="@color/color_text_title"
+            android:textStyle="bold"/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_marginRight="5dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:background="@drawable/key_icon"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textColor="@color/main_action_bar_bg"
+                android:text="Family ID"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/family_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/text_size_family_id"
+                android:gravity="center"
+                android:textColor="@color/color_text_title"
+                android:background="@drawable/btn_join_add_border"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/add_member_text"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="1dp"
+            android:textSize="@dimen/text_size_add_member_guide"/>
+
+    </LinearLayout>
+
+<!--    <ImageView
+        android:id="@+id/createButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/circle_blue"
+        android:src="@drawable/ic_add_schedule" />-->
+
+</RelativeLayout>
