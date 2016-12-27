@@ -306,7 +306,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     //update manager device when join group
                     Log.e(TAG, "ACCEPT_MANAGER_JOIN");
                     SetupWizardActivity.setTypeJoin(Constants.JoinSuccess, getApplicationContext());
-                    sendNotificationAccept("Press here to manager family.","You've accepted to become manager.");
+                    sendNotificationAccept("Tap here to manage your family.","You've accepted to become a additional manager.");
                     Intent intentAccept = new Intent();
                     intentAccept.setAction(MainUtils.MANAGER_JOIN_SUCCESS);
                     getApplicationContext().sendBroadcast(intentAccept);
@@ -315,7 +315,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     //update manager device when join group
                     Log.e(TAG, "REJECT_MANAGER_JOIN");
                     SetupWizardActivity.setTypeJoin(Constants.JoinFail, getApplicationContext());
-                    sendNotificationReject("Press here to request again.", "Your request have been rejected.");
+                    sendNotificationReject("Tap here to request again.", "Your request have been rejected.");
                     Intent intentReject = new Intent();
                     intentReject.setAction(MainUtils.EXIT_MANAGER_TO_SETUPWIZARD);
                     getApplicationContext().sendBroadcast(intentReject);
@@ -329,7 +329,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         Intent intentDelete = new Intent();
                         intentDelete.setAction(MainUtils.EXIT_CHILD_TO_SETUPWIZARD);
                         getApplicationContext().sendBroadcast(intentDelete);
-                        sendNotificationReject("Press here to join again.","Your family group has been deleted");
+                        sendNotificationReject("Tap here to join again.","Your family has been deleted");
                     } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
                         JSONObject messageDeleteGroup = new JSONObject(message) ;
                         JSONObject group = messageDeleteGroup.getJSONObject("message");
@@ -357,7 +357,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         Intent updateIntent = new Intent();
                         updateIntent.setAction(MainUtils.EXIT_CHILD_TO_SETUPWIZARD);
                         getApplicationContext().sendBroadcast(updateIntent);
-                        sendNotificationReject("Press here to join again.", "Your device has been deleted from family");
+                        sendNotificationReject("Tap here to join again.", "Your device has been deleted from family");
                     }else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager){
                         JSONObject messageDeleteDevice = new JSONObject(message);
                         JSONObject device = messageDeleteDevice.getJSONObject("message");
@@ -417,7 +417,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         Intent intentUpdateGroup = new Intent();
         intentUpdateGroup.setAction(MainUtils.UPDATE_FAMILY_GROUP);
         getApplicationContext().sendBroadcast(intentUpdateGroup);
-        sendNotificationAccept("Press here to manager new family.","New family created by parent.");
+        sendNotificationAccept("Tap here to manage new family.","New family has been created by parent.");
 
     }
 
