@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SetLimitz.iml" filepath="$PROJECT_DIR$/SetLimitz.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/setlimitz.iml" filepath="$PROJECT_DIR$/setlimitz.iml" />
     </modules>
   </component>
 </project>

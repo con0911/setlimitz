@@ -517,7 +517,7 @@ public class FamilyManagerment extends Activity{
         if(SetupWizardActivity.getModeDevice(mContext) == Constants.Admin) {
             deleteProfile(position);
         } else {
-            Toast.makeText(mContext, "You don't have delete permission.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "You do not have permission to delete this family.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -591,7 +591,7 @@ public class FamilyManagerment extends Activity{
             }
             return super.onOptionsItemSelected(item);
         } else {
-            Toast.makeText(mContext, "You don't have this permission.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "You do not have permission to edit this family.", Toast.LENGTH_LONG).show();
         }
         return false;
     }
