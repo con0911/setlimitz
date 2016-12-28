@@ -41,9 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Created by sev_user on 9/20/2016.
- */
 public class MyGcmPushReceiver extends GcmListenerService {
 
     public static final String DELETE_NOTI = "del";
@@ -69,8 +66,6 @@ public class MyGcmPushReceiver extends GcmListenerService {
     private ChildKeepFocusItem childProfile;
     private String family_id;
 
-
-
     private MainDatabaseHelper mDataHelper;
     private String contentNotification = "";
 
@@ -93,10 +88,6 @@ public class MyGcmPushReceiver extends GcmListenerService {
         Log.d(TAG, "onMessageReceived: " + bundle.toString());
 
 
-
-
-
-
         if(title.equals("")) {
             title = bundle.getString("title");
         }
@@ -111,9 +102,6 @@ public class MyGcmPushReceiver extends GcmListenerService {
         handleNotification(title, message);
 
         //sendNotification(message, title);
-
-
-
 /*
         {"Data":{
             "Name": "ABDC",

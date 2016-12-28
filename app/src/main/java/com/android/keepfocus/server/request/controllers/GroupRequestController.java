@@ -40,8 +40,11 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class GroupRequestController {
-    public static final String BASE_URL = "http://45.63.21.174/api/group?pRequest=";
-    public static final String LICENSE_URL = "http://45.63.21.174/api/group?pRequest=";
+   // public static final String BASE_URL = "http://45.63.21.174/api/group?pRequest=";
+   // public static final String LICENSE_URL = "http://45.63.21.174/api/group?pRequest=";
+    public static final String BASE_URL = "http://45.32.103.87/api/group?pRequest=";
+    public static final String LICENSE_URL = "http://45.32.103.87/api/group?pRequest=";
+
     private static final int NET_READ_TIMEOUT_MILLIS = 20000;
     private static final int NET_CONNECT_TIMEOUT_MILLIS = 20000;
     private Context mContext;
