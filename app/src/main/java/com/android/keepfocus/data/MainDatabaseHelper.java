@@ -817,6 +817,19 @@ public class MainDatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    private int getIdProfileItemByIdServer(int id_profile_server) {
+        ParentProfileItem profileItem = new ParentProfileItem();
+        dbMain = this.getWritableDatabase();
+        String selectQuery = "SELECT * FROM tblProfileParent WHERE id_profile_server = " + id_profile_server;
+        Cursor cursor = dbMain.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            int id_profile = cursor.getInt(0);
+            return id_profile;
+        }
+        dbMain.close();
+        return -1;
+    }
+
 
     public void makeDetailOneMemberItemParent(ParentMemberItem memberItem) {
         int size = memberItem.getListProfile().size();
@@ -1067,6 +1080,11 @@ public class MainDatabaseHelper extends SQLiteOpenHelper {
                 + id_profile;
         dbMain.execSQL(deltblTimeParent);
         dbMain.close();
+    }
+
+    public void deleteProfileItemByIdServer(int id_profile_server) {
+        int id_profile = getIdProfileItemByIdServer(id_profile_server);
+        deleteProfileItemById(id_profile);
     }
 
     public void deleteAppParentItemById(int id_app_parent) {

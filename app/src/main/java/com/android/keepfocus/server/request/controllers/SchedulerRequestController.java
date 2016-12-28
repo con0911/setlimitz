@@ -50,12 +50,13 @@ public class SchedulerRequestController {
     private MainDatabaseHelper mDataHelper;
     private SharedPreferences joinPref;
     private ArrayList <TimeItems> listTimeItems;
+    private String registationId;
 
     public SchedulerRequestController(Context context) {
         this.mContext = context;
         mDataHelper = new MainDatabaseHelper(context);
         joinPref = PreferenceManager.getDefaultSharedPreferences(context);
-        //registationId = joinPref.getString(MainUtils.REGISTATION_ID, "");
+        registationId = joinPref.getString(MainUtils.REGISTATION_ID, "");
     }
 
     public void addNewScheduler() {
@@ -91,7 +92,7 @@ public class SchedulerRequestController {
         ParentMemberItem device = MainUtils.memberItem;
         Device deviceItem = new Device(device.getId_member_server(), device.getName_member(),"samsung","android","","","child");
         ArrayList<TimeItems> timeItem = getListTime(profileItem);
-        schedulerRequest = new SchedulerRequest(schedulerItem, deviceItem, timeItem, Constants.RequestTypeUpdate,Constants.ActionTypeCreate);
+        schedulerRequest = new SchedulerRequest(schedulerItem, deviceItem, timeItem,registationId, Constants.RequestTypeUpdate,Constants.ActionTypeCreate);
 
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(schedulerRequest);
@@ -106,7 +107,7 @@ public class SchedulerRequestController {
         ParentMemberItem device = MainUtils.memberItem;
         Device deviceItem = new Device(device.getId_member_server(), device.getName_member(),"samsung","android","","","child");
         ArrayList<TimeItems> timeItem = getListTime(profileItem);
-        schedulerRequest = new SchedulerRequest(schedulerItem, deviceItem, timeItem, Constants.RequestTypeUpdate,Constants.ActionTypeUpdate);
+        schedulerRequest = new SchedulerRequest(schedulerItem, deviceItem, timeItem,registationId, Constants.RequestTypeUpdate,Constants.ActionTypeUpdate);
 
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(schedulerRequest);
@@ -121,7 +122,7 @@ public class SchedulerRequestController {
         ParentMemberItem device = MainUtils.memberItem;
         Device deviceItem = new Device(device.getId_member_server(), device.getName_member(),"samsung","android","","","child");
         ArrayList<TimeItems> timeItem = getListTime(profileItem);
-        schedulerRequest = new SchedulerRequest(schedulerItem, deviceItem, timeItem, Constants.RequestTypeUpdate,Constants.ActionTypeDelete);
+        schedulerRequest = new SchedulerRequest(schedulerItem, deviceItem, timeItem,registationId, Constants.RequestTypeUpdate,Constants.ActionTypeDelete);
 
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(schedulerRequest);

@@ -15,15 +15,18 @@ public class SchedulerRequest {
     private ArrayList<TimeItems> TimeItems;
     private int Type;
     private int Action;
+    private String OwnerRegistationId;
 
 
-    public SchedulerRequest(com.android.keepfocus.server.model.Scheduler scheduler, com.android.keepfocus.server.model.Device device, ArrayList<com.android.keepfocus.server.model.TimeItems> timeItems, int type, int action) {
+    public SchedulerRequest(com.android.keepfocus.server.model.Scheduler scheduler, com.android.keepfocus.server.model.Device device, ArrayList<com.android.keepfocus.server.model.TimeItems> timeItems, String ownerRegistationId, int type, int action) {
         Scheduler = scheduler;
         Device = device;
         TimeItems = timeItems;
         Type = type;
         Action = action;
+        this.OwnerRegistationId = ownerRegistationId;
     }
+
     public SchedulerRequest(com.android.keepfocus.server.model.Scheduler scheduler, com.android.keepfocus.server.model.Device device, int type, int action) {
         Scheduler = scheduler;
         Device = device;
@@ -31,7 +34,7 @@ public class SchedulerRequest {
         Action = action;
     }
 
-    public SchedulerRequest(int type, Device device){
+    public SchedulerRequest(int type, Device device) {
         Type = type;
         Device = device;
     }

@@ -173,6 +173,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Children
                             && SetupWizardActivity.getTypeJoin(getApplicationContext()) == Constants.JoinSuccess) {
                         deletScheduler(message);
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
+                        deletSchedulerManager(message);
                     }
                     break;
                 case CREATE_NOTI:
@@ -182,7 +184,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                             && SetupWizardActivity.getTypeJoin(getApplicationContext()) == Constants.JoinSuccess) {
                         createNewScheduler(message);
                     } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
-                        //createChildSchedulerInManager(message);
+                        createChildSchedulerInManager(message);
                     }
                     break;
                 case UPDATE_NOTI:
@@ -191,6 +193,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Children
                             && SetupWizardActivity.getTypeJoin(getApplicationContext()) == Constants.JoinSuccess) {
                         updateScheduler(message);
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
+                        updateSchedulerManager(message);
                     }
                     break;
                 case JOIN_GROUP:
@@ -494,6 +498,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
     public void createChildSchedulerInManager(String message) throws JSONException {
         JSONObject data = new JSONObject(message);
         JSONObject scheduler = data.getJSONObject("Scheduler");
+        JSONObject device = data.getJSONObject("Device");
+        int id_member_server = device.getInt("id");
         JSONArray timeItem = data.getJSONArray("TimeItems");
         Log.d(TAG,"timeItem "+timeItem);
         ParentProfileItem parentProfileItem = new ParentProfileItem();
@@ -518,10 +524,10 @@ public class MyGcmPushReceiver extends GcmListenerService {
         }
 
         parentProfileItem.setListTimer(arrayList);
-
-        //ParentMemberItem parentMemberItem = mDataHelper.getMemberItemByIdServer(scheduler.getInt("groupuser_id"));
-        //parentMemberItem.getListProfile().add(parentProfileItem);
-        //mDataHelper.updateMemberItem(parentMemberItem);
+        ParentMemberItem member = mDataHelper.getMemberItemByIdServer(id_member_server);
+        if (member != null) {
+            mDataHelper.addProfileItemParent(parentProfileItem, member.getId_member());
+        }
         Intent intent = new Intent();
         intent.setAction(MainUtils.UPDATE_SCHEDULER);
         getApplicationContext().sendBroadcast(intent);
@@ -576,7 +582,46 @@ public class MyGcmPushReceiver extends GcmListenerService {
         }else {//if null, create new
             createNewScheduler(message);
         }
+    }
 
+    public void updateSchedulerManager(String message) throws JSONException {
+        JSONObject data = new JSONObject(message);
+        JSONObject scheduler = data.getJSONObject("Scheduler");
+        JSONObject device = data.getJSONObject("Device");
+        int id_member_server = device.getInt("id");
+        int id_profile_server = scheduler.getInt("id");
+        JSONArray timeItem = data.getJSONArray("TimeItems");
+        Log.d(TAG,"timeItem "+timeItem);
+        ParentProfileItem parentProfileItem = new ParentProfileItem();
+
+        parentProfileItem.setName_profile(scheduler.getString("scheduler_name"));
+        parentProfileItem.setActive(isActive(scheduler.getInt("isActive")));
+        parentProfileItem.setDay_profile(scheduler.getString("days"));
+        parentProfileItem.setId_profile_server(scheduler.getInt("id"));
+
+
+
+        ArrayList<ParentTimeItem> arrayList = new ArrayList(timeItem.length());
+        for(int i=0;i < timeItem.length();i++){
+            ParentTimeItem item1 = new ParentTimeItem();
+            item1.setId_profile(timeItem.getJSONObject(i).getInt("scheduler_id"));
+            item1.setHourBegin(timeItem.getJSONObject(i).getInt("start_hours"));
+            item1.setHourEnd(timeItem.getJSONObject(i).getInt("end_hours"));
+            item1.setMinusBegin(timeItem.getJSONObject(i).getInt("start_minutes"));
+            item1.setMinusEnd(timeItem.getJSONObject(i).getInt("end_minutes"));
+            item1.setId_time_server(timeItem.getJSONObject(i).getInt("id"));
+            arrayList.add(item1);
+        }
+
+        parentProfileItem.setListTimer(arrayList);
+
+        //
+        mDataHelper.deleteProfileItemByIdServer(id_profile_server);
+        //
+        ParentMemberItem member = mDataHelper.getMemberItemByIdServer(id_member_server);
+        if (member != null) {
+            mDataHelper.addProfileItemParent(parentProfileItem, member.getId_member());
+        }
 
 
     }
@@ -599,6 +644,20 @@ public class MyGcmPushReceiver extends GcmListenerService {
         getApplicationContext().sendBroadcast(intent);
         sendNotificationCreate("", "A schedule has been deleted");
 
+    }
+
+    public void deletSchedulerManager(String message) throws JSONException {
+        JSONObject data = new JSONObject(message);
+        JSONObject scheduler = data.getJSONObject("Scheduler");
+        JSONObject Device = data.getJSONObject("Device");
+        int id_profile_server = scheduler.getInt("id");
+        mDataHelper.deleteProfileItemByIdServer(id_profile_server);
+
+        //Need implement for update view in manager
+//        Intent intent = new Intent();
+//        intent.setAction(MainUtils.UPDATE_CHILD_SCHEDULER);
+//        getApplicationContext().sendBroadcast(intent);
+        sendNotificationCreate("", "A schedule has been deleted");
     }
 
 

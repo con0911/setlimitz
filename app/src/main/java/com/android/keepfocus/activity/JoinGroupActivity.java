@@ -616,6 +616,9 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
 
     @SuppressLint("NewApi")
     private boolean isOnUsageAccess() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return true;
+        }
         UsageStatsManager usm = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
         Calendar calendar = Calendar.getInstance();
         long toTime = calendar.getTimeInMillis();
