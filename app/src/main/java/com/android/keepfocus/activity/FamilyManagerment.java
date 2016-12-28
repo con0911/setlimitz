@@ -138,6 +138,9 @@ public class FamilyManagerment extends Activity{
         listTwoFamily.setVisibility(View.GONE);
 
         setTitle(R.string.family_management);
+        if (SetupWizardActivity.getModeDevice(mContext) == Constants.Manager) {
+            setTitle(R.string.manager_management);
+        }
         layoutList = (RelativeLayout) findViewById(R.id.layout_list);
         mTextNoGroup = (TextView) findViewById(R.id.text_no_group);
         detailLayout = (LinearLayout) findViewById(R.id.bottom_layout);

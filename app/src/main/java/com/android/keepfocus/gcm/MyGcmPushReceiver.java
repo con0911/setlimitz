@@ -368,15 +368,23 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         intentUpdateMember.setAction(MainUtils.UPDATE_CHILD_DEVICE);
                         getApplicationContext().sendBroadcast(intentUpdateMember);
                     }
+                    break;
 
                 case SEND_MESSAGES_CREATE_GROUP:
+                    Log.d(TAG,"SEND_MESSAGES_CREATE_GROUP");
                     if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
                         //manager update group created by parent
                         updateGroupCreatedByParent(message);
                     }
+                    break;
+                case SEND_MESSAGES_UPDATE_GROUP:
+                    Log.d(TAG,"SEND_MESSAGES_UPDATE_GROUP");
+
+                    break;
 
                 default:
                     Log.d(TAG,"title not match : " + titleText);
+                    break;
             }
 
             /*if(titleText.equals(DELETE_NOTI)){

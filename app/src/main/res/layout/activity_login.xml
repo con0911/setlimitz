@@ -153,6 +153,8 @@
                     android:background="@drawable/btn_signup"
                     android:gravity="center"
                     android:text="CREATE A NEW SETLIMITZ ACCOUNT"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="#fafafa"
                     android:textSize="15sp" />
 
