@@ -317,6 +317,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         Intent intentDelete = new Intent();
                         intentDelete.setAction(MainUtils.EXIT_CHILD_TO_SETUPWIZARD);
                         getApplicationContext().sendBroadcast(intentDelete);
+                        resetPreference();
                         sendNotificationReject("Tap here to join again.","Your family has been deleted");
                     } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
                         JSONObject messageDeleteGroup = new JSONObject(message) ;
@@ -345,6 +346,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         Intent updateIntent = new Intent();
                         updateIntent.setAction(MainUtils.EXIT_CHILD_TO_SETUPWIZARD);
                         getApplicationContext().sendBroadcast(updateIntent);
+                        resetPreference();
                         sendNotificationReject("Tap here to join again.", "Your device has been deleted from family");
                     }else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager){
                         JSONObject messageDeleteDevice = new JSONObject(message);
@@ -840,6 +842,16 @@ public class MyGcmPushReceiver extends GcmListenerService {
             notificationManager.cancel(11);
         }
 
+    }
+
+    private void resetPreference() {
+        SharedPreferences prefs = this.getSharedPreferences(
+                MainUtils.PACKET_APP, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(MainUtils.IS_BLOCK_ALL, false);
+        editor.putBoolean(MainUtils.IS_ALLOW_ALL, false);
+        editor.putBoolean(MainUtils.IS_BLOCK_SETTINGS, false);
+        editor.commit();
     }
 }
 

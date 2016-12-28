@@ -107,7 +107,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
     public static Bundle bundle;
     private CountDownTimer mCDT = null;
 
-    private ArrayList<String> listLicenses;
+    private ArrayList<License> listLicenses;
     private ArrayAdapter licenseAdapter;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -664,7 +664,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
         Device deviceItem = new Device(0, nameDevice.getText().toString(), "ss", "android", registationId, "", checkType());
         License license = new License("");
         if (checkType().equals(CHILDREN)) {
-            license = new License(mActiveCode.getSelectedItem().toString());
+            license = new License(getLicenseFromName(mActiveCode.getSelectedItemPosition()));
         }
         JoinGroupRequest joinGroupRequest = new JoinGroupRequest(3, groupItem, deviceItem, license);
         Gson gson = new Gson();
@@ -917,12 +917,27 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
         }
     }
 
-    public void setLicenseList(ArrayList<String> list){
+    public void setLicenseList(ArrayList<License> list){
+        if (list == null) {
+            mActiveCode.setAdapter(null);
+            return;
+        }
         Log.d(GroupRequestController.class.getName(),"setLicenseList");
         listLicenses = list;
+        ArrayList <String> licenseCode = new ArrayList<String>(listLicenses.size()) {
+        };
+        for(int i=0; i < listLicenses.size(); i++) {
+            if(listLicenses.get(i)!=null) {
+                if (listLicenses.get(i).getDevice_name() == "_") {
+                    licenseCode.add(listLicenses.get(i).getLicense_key());
+                } else {
+                    licenseCode.add(listLicenses.get(i).getDevice_name());
+                }
+            }
+        }
         ArrayAdapter licenseAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_item,
-                listLicenses);
+                licenseCode);
         licenseAdapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         mActiveCode.setAdapter(licenseAdapter);
         if (!joinFamilyIDText.getText().toString().isEmpty() &&
@@ -937,6 +952,13 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
             btnImageDone.setTextColor(Color.parseColor("#808080"/*String.valueOf(getResources().getColor(R.color.grey))*/));
         }
 
+    }
+
+    private String getLicenseFromName(int position){
+        if (listLicenses.get(position)!=null) {
+            return listLicenses.get(position).getLicense_key();
+        }
+        return "";
     }
 
     private void createTestSpinner(){
