@@ -705,8 +705,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     private void handleBlockForParentAndManager(String message, String type) throws JSONException {
         JSONObject data = new JSONObject(message);
-        JSONObject Device = data.getJSONObject("Device");
-        int id_member_server = Device.getInt("id");
+        int id_member_server = data.getInt("id");
         ParentMemberItem member = mDataHelper.getMemberItemByIdServer(id_member_server);
         String titleNoti = "";
         Intent intent = new Intent();
