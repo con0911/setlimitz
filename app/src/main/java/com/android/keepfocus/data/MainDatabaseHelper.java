@@ -355,6 +355,15 @@ public class MainDatabaseHelper extends SQLiteOpenHelper {
         dbMain.close();
     }
 
+    public void deleteTimeItemByKeepFocusId(int keep_focus_id) {
+        dbMain = this.getWritableDatabase();
+        // Delete from tblTimeItem
+        String deleteTimeItem = "DELETE FROM tblTimeItem WHERE keep_focus_id = "
+                + keep_focus_id;
+        dbMain.execSQL(deleteTimeItem);
+        dbMain.close();
+    }
+
     public void deleteAppFromKeepFocus(int app_id, int keep_focus_id) {
         dbMain = this.getWritableDatabase();
         // Delete from tblKeepfocusApp
@@ -672,6 +681,32 @@ public class MainDatabaseHelper extends SQLiteOpenHelper {
         return groupItem;
     }
 
+    public ParentGroupItem getGroupByIdServer(int id_server) {
+        // Select All Query
+        String selectQuery = "SELECT * FROM tblGroupParent WHERE id_group_server = " + id_server;
+        dbMain = this.getWritableDatabase();
+        Cursor cursor = dbMain.rawQuery(selectQuery, null);
+        ParentGroupItem groupItem = new ParentGroupItem();
+        if (cursor.moveToFirst()) {
+            int id_group = Integer.parseInt(cursor.getString(0));
+            String group_name = cursor.getString(1);
+            String group_code = cursor.getString(2);
+            String create_date = cursor.getString(3);
+            byte[] icon_uri = cursor.getBlob(4);
+            int id_group_server = cursor.getInt(5);
+            groupItem.setId_group(id_group);
+            groupItem.setGroup_name(group_name);
+            groupItem.setGroup_code(group_code);
+            groupItem.setCreate_date(create_date);
+            groupItem.setId_group_server(id_group_server);
+            //
+            groupItem.setListMember(getListMember(id_group));
+            groupItem.setIcon_arrarByte(icon_uri);
+        }
+        dbMain.close();
+        return groupItem;
+    }
+
     public ArrayList<ParentMemberItem> getListMember(int idGroup) {
         ArrayList<ParentMemberItem> listMember = new ArrayList<ParentMemberItem>();
       //  if (dbMain == null) {
@@ -817,7 +852,7 @@ public class MainDatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    private int getIdProfileItemByIdServer(int id_profile_server) {
+    public int getIdProfileItemByIdServer(int id_profile_server) {
         ParentProfileItem profileItem = new ParentProfileItem();
         dbMain = this.getWritableDatabase();
         String selectQuery = "SELECT * FROM tblProfileParent WHERE id_profile_server = " + id_profile_server;
@@ -1105,6 +1140,15 @@ public class MainDatabaseHelper extends SQLiteOpenHelper {
         // Delete from tblTimeParent
         String deltblTimeParent = "DELETE FROM tblTimeParent WHERE id_time_parent = "
                 + id_time_parent;
+        dbMain.execSQL(deltblTimeParent);
+        dbMain.close();
+    }
+
+    public void deleteTimerParentItemByProfileId(int id_profile) {
+        dbMain = this.getWritableDatabase();
+        // Delete from tblTimeParent
+        String deltblTimeParent = "DELETE FROM tblTimeParent WHERE id_profile = "
+                + id_profile;
         dbMain.execSQL(deltblTimeParent);
         dbMain.close();
     }

@@ -173,7 +173,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Children
                             && SetupWizardActivity.getTypeJoin(getApplicationContext()) == Constants.JoinSuccess) {
                         deletScheduler(message);
-                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
+                               || SetupWizardActivity.getModeDevice(getApplicationContext())== Constants.Admin) {
                         deletSchedulerManager(message);
                     }
                     break;
@@ -183,7 +184,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Children
                             && SetupWizardActivity.getTypeJoin(getApplicationContext()) == Constants.JoinSuccess) {
                         createNewScheduler(message);
-                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
+                            || SetupWizardActivity.getModeDevice(getApplicationContext())== Constants.Admin) {
                         createChildSchedulerInManager(message);
                     }
                     break;
@@ -193,7 +195,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Children
                             && SetupWizardActivity.getTypeJoin(getApplicationContext()) == Constants.JoinSuccess) {
                         updateScheduler(message);
-                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
+                            || SetupWizardActivity.getModeDevice(getApplicationContext())== Constants.Admin) {
                         updateSchedulerManager(message);
                     }
                     break;
@@ -214,6 +217,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         JSONObject thisMessage = new JSONObject(message);
                         if (thisMessage.getString("tickerText").equals(SEND_MESSAGES_CREATE_GROUP)) {
                             handleNotification(SEND_MESSAGES_CREATE_GROUP, message);
+                        } else if (thisMessage.getString("tickerText").equals(SEND_MESSAGES_UPDATE_GROUP)) {
+                            handleNotification(SEND_MESSAGES_UPDATE_GROUP, message);
                         }
                     }
                     break;
@@ -368,12 +373,15 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     Log.d(TAG,"SEND_MESSAGES_CREATE_GROUP");
                     if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
                         //manager update group created by parent
-                        updateGroupCreatedByParent(message);
+                        createdGroupByParent(message);
                     }
                     break;
                 case SEND_MESSAGES_UPDATE_GROUP:
                     Log.d(TAG,"SEND_MESSAGES_UPDATE_GROUP");
-
+                    if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
+                        //manager update group created by parent
+                        updateGroupByParent(message);
+                    }
                     break;
 
                 default:
@@ -407,7 +415,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         else return false;
     }
 
-    private void updateGroupCreatedByParent(String groupCreateMessage) throws JSONException {
+    private void createdGroupByParent(String groupCreateMessage) throws JSONException {
         JSONObject messageCreate = new JSONObject(groupCreateMessage);
         JSONObject groupCreated = messageCreate.getJSONObject("message");
         ParentGroupItem newGroup = new ParentGroupItem();
@@ -420,6 +428,21 @@ public class MyGcmPushReceiver extends GcmListenerService {
         intentUpdateGroup.setAction(MainUtils.UPDATE_FAMILY_GROUP);
         getApplicationContext().sendBroadcast(intentUpdateGroup);
         sendNotificationAccept("Tap here to manage new family.","New family has been created by parent.");
+
+    }
+
+    private void updateGroupByParent(String groupCreateMessage) throws JSONException {
+        JSONObject messageCreate = new JSONObject(groupCreateMessage);
+        JSONObject groupCreated = messageCreate.getJSONObject("message");
+        //ParentGroupItem groupUpdate = mDataHelper.getGroupByIdServer(groupCreated.getInt("id"));
+        MainUtils.parentGroupItem = mDataHelper.getGroupByIdServer(groupCreated.getInt("id"));
+        MainUtils.parentGroupItem.setGroup_name(groupCreated.getString("group_name"));
+        //newGroup.setIs_restore(1);
+        mDataHelper.updateGroupItem(MainUtils.parentGroupItem);
+        Intent intentUpdateGroup = new Intent();
+        intentUpdateGroup.setAction(MainUtils.UPDATE_FAMILY_GROUP);
+        getApplicationContext().sendBroadcast(intentUpdateGroup);
+        //sendNotificationAccept("","A family has been update by parent.");
 
     }
 
@@ -529,9 +552,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
             mDataHelper.addProfileItemParent(parentProfileItem, member.getId_member());
         }
         Intent intent = new Intent();
-        intent.setAction(MainUtils.UPDATE_SCHEDULER);
+        intent.setAction(MainUtils.UPDATE_CHILD_DEVICE);
         getApplicationContext().sendBroadcast(intent);
-        sendNotificationCreate("", "New schedule has been created");
+        sendNotificationAccept("", "New schedule has been created");
     }
 
     public void updateScheduler(String message) throws JSONException {
@@ -555,6 +578,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
             MainUtils.childKeepFocusItem.setDayFocus(scheduler.getString("days"));
 
             //ArrayList<ChildTimeItem> arrayList = new ArrayList(timeItem.length());
+            mDataHelper.deleteTimeItemByKeepFocusId(MainUtils.childKeepFocusItem.getKeepFocusId());
             for(int i=0;i < timeItem.length();i++){
                 ChildTimeItem item1 = new ChildTimeItem();
                 item1.setKeepFocusId(timeItem.getJSONObject(i).getInt("scheduler_id"));
@@ -591,18 +615,20 @@ public class MyGcmPushReceiver extends GcmListenerService {
         int id_member_server = device.getInt("id");
         int id_profile_server = scheduler.getInt("id");
         JSONArray timeItem = data.getJSONArray("TimeItems");
-        Log.d(TAG,"timeItem "+timeItem);
+        Log.d(TAG, "timeItem " + timeItem);
+
         ParentProfileItem parentProfileItem = new ParentProfileItem();
+        //mDataHelper.deleteProfileItemById(parentProfileItem.getId_profile());
 
         parentProfileItem.setName_profile(scheduler.getString("scheduler_name"));
         parentProfileItem.setActive(isActive(scheduler.getInt("isActive")));
         parentProfileItem.setDay_profile(scheduler.getString("days"));
         parentProfileItem.setId_profile_server(scheduler.getInt("id"));
 
-
-
-        ArrayList<ParentTimeItem> arrayList = new ArrayList(timeItem.length());
-        for(int i=0;i < timeItem.length();i++){
+        parentProfileItem.setId_profile(mDataHelper.getIdProfileItemByIdServer(id_profile_server));
+        //ArrayList<ParentTimeItem> arrayList = new ArrayList(timeItem.length());
+        mDataHelper.deleteTimerParentItemByProfileId(parentProfileItem.getId_profile());
+        for(int i=0;i < timeItem.length(); i++) {
             ParentTimeItem item1 = new ParentTimeItem();
             item1.setId_profile(timeItem.getJSONObject(i).getInt("scheduler_id"));
             item1.setHourBegin(timeItem.getJSONObject(i).getInt("start_hours"));
@@ -610,19 +636,20 @@ public class MyGcmPushReceiver extends GcmListenerService {
             item1.setMinusBegin(timeItem.getJSONObject(i).getInt("start_minutes"));
             item1.setMinusEnd(timeItem.getJSONObject(i).getInt("end_minutes"));
             item1.setId_time_server(timeItem.getJSONObject(i).getInt("id"));
-            arrayList.add(item1);
+            //arrayList.add(item1);
+            mDataHelper.addTimeItemParent(item1, parentProfileItem.getId_profile());
         }
-
-        parentProfileItem.setListTimer(arrayList);
-
-        //
-        mDataHelper.deleteProfileItemByIdServer(id_profile_server);
-        //
+        mDataHelper.updateProfileItem(parentProfileItem);
+        //parentProfileItem.setListTimer(arrayList);
+        /*mDataHelper.deleteProfileItemByIdServer(id_profile_server);
         ParentMemberItem member = mDataHelper.getMemberItemByIdServer(id_member_server);
         if (member != null) {
             mDataHelper.addProfileItemParent(parentProfileItem, member.getId_member());
-        }
-
+        }*/
+        Intent intent = new Intent();
+        intent.setAction(MainUtils.UPDATE_SCHEDULER);
+        getApplicationContext().sendBroadcast(intent);
+        sendNotificationAccept("", "SetLimitz has updated your child's schedule");
 
     }
 
@@ -654,10 +681,11 @@ public class MyGcmPushReceiver extends GcmListenerService {
         mDataHelper.deleteProfileItemByIdServer(id_profile_server);
 
         //Need implement for update view in manager
-//        Intent intent = new Intent();
-//        intent.setAction(MainUtils.UPDATE_CHILD_SCHEDULER);
-//        getApplicationContext().sendBroadcast(intent);
-        sendNotificationCreate("", "A schedule has been deleted");
+        Intent intent = new Intent();
+        intent.setAction(MainUtils.UPDATE_CHILD_DEVICE);
+        getApplicationContext().sendBroadcast(intent);
+        sendNotificationAccept("", "SetLimitz has deleted your child's schedule");
+        //sendNotificationCreate("", "A schedule has been deleted");
     }
 
 

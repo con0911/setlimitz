@@ -85,9 +85,11 @@ public class SetupWizardActivity extends Activity implements View.OnClickListene
             imgCavnus.setVisibility(View.GONE);
         }
         btnParent.setOnClickListener(this);
+        btnAddParent.setOnClickListener(this);
+        btnChild.setOnClickListener(this);
         mTerms.setOnClickListener(this);
 
-        btnChild.setOnClickListener(new View.OnClickListener() {
+/*        btnChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent joinGroupChild = new Intent(SetupWizardActivity.this, JoinGroupActivity.class);
@@ -103,7 +105,7 @@ public class SetupWizardActivity extends Activity implements View.OnClickListene
                 setModeDevice(Constants.Manager, mContext);
                 startActivity(joinGroupAddParent);
             }
-        });
+        });*/
     }
 
 
@@ -132,10 +134,12 @@ public class SetupWizardActivity extends Activity implements View.OnClickListene
 
             case R.id.btn_additional_parent:
                 Intent joinGroupAddParent = new Intent(SetupWizardActivity.this, JoinGroupActivity.class);
+                setModeDevice(Constants.Manager, mContext);
                 startActivity(joinGroupAddParent);
                 break;
             case R.id.btn_child:
                 Intent joinGroupChild = new Intent(SetupWizardActivity.this, JoinGroupActivity.class);
+                setModeDevice(Constants.Children, mContext);
                 startActivity(joinGroupChild);
                 break;
             case R.id.terms_link:
