@@ -687,7 +687,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
         //GroupUser groupUser = new GroupUser(0, 0, 0, mActiveCode.getSelectedItem().toString());
         License license = new License("");
         if (checkType().equals(CHILDREN)) {
-            license = new License(mActiveCode.getSelectedItem().toString());
+            license = new License(getLicenseFromName(mActiveCode.getSelectedItemPosition()));
         }
         JoinGroupRequest joinGroupRequest = new JoinGroupRequest(4, groupItem, deviceItem, license);
         Gson gson = new Gson();
