@@ -393,7 +393,7 @@ public class SchedulerRequestController {
     public String creatBlockAllRequest(ParentMemberItem memberItem) {
         ParentMemberItem device = memberItem;
         Device deviceItem = new Device(device.getId_member_server(), device.getName_member(), "samsung", "android", "", "", "child");
-        deviceRequest = new DeviceRequest(1, 9, deviceItem);
+        deviceRequest = new DeviceRequest(1, 9, registationId, deviceItem);
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(deviceRequest);
         Log.d(TAG, "jsonRequest: " + jsonRequest);
@@ -403,7 +403,7 @@ public class SchedulerRequestController {
     public String creatUnBlockAllRequest(ParentMemberItem memberItem) {
         ParentMemberItem device = memberItem;
         Device deviceItem = new Device(device.getId_member_server(), device.getName_member(), "samsung", "android", "", "", "child");
-        deviceRequest = new DeviceRequest(1, 11, deviceItem);
+        deviceRequest = new DeviceRequest(1, 11, registationId, deviceItem);
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(deviceRequest);
         Log.d(TAG, "jsonRequest: " + jsonRequest);
@@ -413,7 +413,7 @@ public class SchedulerRequestController {
     public String creatAllowAllRequest(ParentMemberItem memberItem) {
         ParentMemberItem device = memberItem;
         Device deviceItem = new Device(device.getId_member_server(), device.getName_member(), "samsung", "android", "", "", "child");
-        deviceRequest = new DeviceRequest(1, 10, deviceItem);
+        deviceRequest = new DeviceRequest(1, 10, registationId, deviceItem);
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(deviceRequest);
         Log.d(TAG, "jsonRequest: " + jsonRequest);
@@ -423,7 +423,7 @@ public class SchedulerRequestController {
     public String creatUnAllowAllRequest(ParentMemberItem memberItem) {
         ParentMemberItem device = memberItem;
         Device deviceItem = new Device(device.getId_member_server(), device.getName_member(), "samsung", "android", "", "", "child");
-        deviceRequest = new DeviceRequest(1, 12, deviceItem);
+        deviceRequest = new DeviceRequest(1, 12, registationId, deviceItem);
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(deviceRequest);
         Log.d(TAG, "jsonRequest: " + jsonRequest);
@@ -433,7 +433,7 @@ public class SchedulerRequestController {
     public String creatBlockSettingsRequest(ParentMemberItem memberItem) {
         ParentMemberItem device = memberItem;
         Device deviceItem = new Device(device.getId_member_server(), device.getName_member(), "samsung", "android", "", "", "child");
-        deviceRequest = new DeviceRequest(1, 13, deviceItem);
+        deviceRequest = new DeviceRequest(1, 13, registationId, deviceItem);
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(deviceRequest);
         Log.d(TAG, "jsonRequest: " + jsonRequest);
@@ -443,7 +443,7 @@ public class SchedulerRequestController {
     public String creatUnBlockSettingsRequest(ParentMemberItem memberItem) {
         ParentMemberItem device = memberItem;
         Device deviceItem = new Device(device.getId_member_server(), device.getName_member(), "samsung", "android", "", "", "child");
-        deviceRequest = new DeviceRequest(1, 14, deviceItem);
+        deviceRequest = new DeviceRequest(1, 14, registationId, deviceItem);
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(deviceRequest);
         Log.d(TAG, "jsonRequest: " + jsonRequest);
