@@ -9,7 +9,15 @@ public class DeviceRequest {
     private int Type;
     private int Action;
     private Device Device;
+    private String OwnerRegistationId;
 
+
+    public DeviceRequest(int type, int action, String ownerRegistationId, Device device) {
+        Action = action;
+        Type = type;
+        this.Device = device;
+        this.OwnerRegistationId = ownerRegistationId;
+    }
 
     public DeviceRequest(int type, int action, Device device) {
         Action = action;

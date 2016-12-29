@@ -88,11 +88,11 @@ public class MyGcmPushReceiver extends GcmListenerService {
         Log.d(TAG, "onMessageReceived: " + bundle.toString());
 
 
-        if(title.equals("")) {
+        if (title.equals("")) {
             title = bundle.getString("title");
         }
         //String title2 = bundle.getString("title");
-        Log.d(TAG,"title : " + title);
+        Log.d(TAG, "title : " + title);
         Log.d(TAG, "From: " + from);
         //Log.d(TAG, "bundle: " + bundle);
         Log.e(TAG, "Message: " + message);
@@ -166,7 +166,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         String titleText = title;
         JSONObject jsonObj = null;
         try {
-            switch (titleText){
+            switch (titleText) {
                 case DELETE_NOTI:
                     //Delete
                     Log.e(TAG, "delete");
@@ -174,7 +174,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                             && SetupWizardActivity.getTypeJoin(getApplicationContext()) == Constants.JoinSuccess) {
                         deletScheduler(message);
                     } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
-                               || SetupWizardActivity.getModeDevice(getApplicationContext())== Constants.Admin) {
+                            || SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Admin) {
                         deletSchedulerManager(message);
                     }
                     break;
@@ -185,7 +185,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                             && SetupWizardActivity.getTypeJoin(getApplicationContext()) == Constants.JoinSuccess) {
                         createNewScheduler(message);
                     } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
-                            || SetupWizardActivity.getModeDevice(getApplicationContext())== Constants.Admin) {
+                            || SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Admin) {
                         createChildSchedulerInManager(message);
                     }
                     break;
@@ -196,7 +196,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                             && SetupWizardActivity.getTypeJoin(getApplicationContext()) == Constants.JoinSuccess) {
                         updateScheduler(message);
                     } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
-                            || SetupWizardActivity.getModeDevice(getApplicationContext())== Constants.Admin) {
+                            || SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Admin) {
                         updateSchedulerManager(message);
                     }
                     break;
@@ -231,6 +231,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         editor.putBoolean(MainUtils.IS_BLOCK_ALL, true);
                         editor.putBoolean(MainUtils.IS_ALLOW_ALL, false);
                         editor.commit();
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
+                            || SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Admin) {
+                        handleBlockForParentAndManager(message, BLOCKALL);
                     }
                     break;
                 case UNBLOCKALL:
@@ -241,6 +244,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         SharedPreferences.Editor editor2 = prefs.edit();
                         editor2.putBoolean(MainUtils.IS_BLOCK_ALL, false);
                         editor2.commit();
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
+                            || SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Admin) {
+                        handleBlockForParentAndManager(message, UNBLOCKALL);
                     }
                     break;
                 case ALLOWALL:
@@ -252,6 +258,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         editor3.putBoolean(MainUtils.IS_BLOCK_ALL, false);
                         editor3.putBoolean(MainUtils.IS_ALLOW_ALL, true);
                         editor3.commit();
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
+                            || SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Admin) {
+                        handleBlockForParentAndManager(message, ALLOWALL);
                     }
                     break;
                 case UNALLOWALL:
@@ -262,6 +271,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         SharedPreferences.Editor editor4 = prefs.edit();
                         editor4.putBoolean(MainUtils.IS_ALLOW_ALL, false);
                         editor4.commit();
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
+                            || SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Admin) {
+                        handleBlockForParentAndManager(message, UNALLOWALL);
                     }
                     break;
 
@@ -273,6 +285,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         SharedPreferences.Editor editor5 = prefs.edit();
                         editor5.putBoolean(MainUtils.IS_BLOCK_SETTINGS, true);
                         editor5.commit();
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
+                            || SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Admin) {
+                        handleBlockForParentAndManager(message, BLOCK_SETTINGS);
                     }
                     break;
                 case UN_BLOCK_SETTINGS:
@@ -283,6 +298,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         SharedPreferences.Editor editor6 = prefs.edit();
                         editor6.putBoolean(MainUtils.IS_BLOCK_SETTINGS, false);
                         editor6.commit();
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager
+                            || SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Admin) {
+                        handleBlockForParentAndManager(message, UN_BLOCK_SETTINGS);
                     }
                     break;
                 case MANAGER_JOIN_GROUP:
@@ -294,7 +312,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     String deviceName = jsonDevice.getString("device_name");
                     JSONObject jsonGroup = jsonMessage.getJSONObject("Group");
 
-                    sendNotificationConfirm(deviceName+" want to join your family as a manager.",
+                    sendNotificationConfirm(deviceName + " want to join your family as a manager.",
                             "You have a manager request",
                             jsonDevice.toString(),
                             jsonGroup.toString());
@@ -303,7 +321,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     //update manager device when join group
                     Log.e(TAG, "ACCEPT_MANAGER_JOIN");
                     SetupWizardActivity.setTypeJoin(Constants.JoinSuccess, getApplicationContext());
-                    sendNotificationAccept("Tap here to manage your family.","You've accepted to become a additional manager.");
+                    sendNotificationAccept("Tap here to manage your family.", "You've accepted to become a additional manager.");
                     Intent intentAccept = new Intent();
                     intentAccept.setAction(MainUtils.MANAGER_JOIN_SUCCESS);
                     getApplicationContext().sendBroadcast(intentAccept);
@@ -327,9 +345,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         intentDelete.setAction(MainUtils.EXIT_CHILD_TO_SETUPWIZARD);
                         getApplicationContext().sendBroadcast(intentDelete);
                         resetPreference();
-                        sendNotificationReject("Tap here to join again.","Your family has been deleted");
+                        sendNotificationReject("Tap here to join again.", "Your family has been deleted");
                     } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
-                        JSONObject messageDeleteGroup = new JSONObject(message) ;
+                        JSONObject messageDeleteGroup = new JSONObject(message);
                         JSONObject group = messageDeleteGroup.getJSONObject("message");
                         String group_code = group.getString("group_code");
                         ParentGroupItem parent = mDataHelper.getGroupByCode(group_code);
@@ -340,8 +358,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     }
 
                     //if(isActivityRunning(ChildSchedulerActivity.class)) {
-                        //Intent intent = new Intent(this, SetupWizardActivity.class);
-                        //startActivity(intent);
+                    //Intent intent = new Intent(this, SetupWizardActivity.class);
+                    //startActivity(intent);
                     //}
 
 
@@ -357,7 +375,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         getApplicationContext().sendBroadcast(updateIntent);
                         resetPreference();
                         sendNotificationReject("Tap here to join again.", "Your device has been deleted from family");
-                    }else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager){
+                    } else if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
                         JSONObject messageDeleteDevice = new JSONObject(message);
                         JSONObject device = messageDeleteDevice.getJSONObject("message");
                         int id_server = device.getInt("id");
@@ -370,14 +388,14 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     break;
 
                 case SEND_MESSAGES_CREATE_GROUP:
-                    Log.d(TAG,"SEND_MESSAGES_CREATE_GROUP");
+                    Log.d(TAG, "SEND_MESSAGES_CREATE_GROUP");
                     if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
                         //manager update group created by parent
                         createdGroupByParent(message);
                     }
                     break;
                 case SEND_MESSAGES_UPDATE_GROUP:
-                    Log.d(TAG,"SEND_MESSAGES_UPDATE_GROUP");
+                    Log.d(TAG, "SEND_MESSAGES_UPDATE_GROUP");
                     if (SetupWizardActivity.getModeDevice(getApplicationContext()) == Constants.Manager) {
                         //manager update group created by parent
                         updateGroupByParent(message);
@@ -385,7 +403,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     break;
 
                 default:
-                    Log.d(TAG,"title not match : " + titleText);
+                    Log.d(TAG, "title not match : " + titleText);
                     break;
             }
 
@@ -410,8 +428,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
         }
     }
 
-    private boolean isActive(int state){
-        if(state == 1) return true;
+    private boolean isActive(int state) {
+        if (state == 1) return true;
         else return false;
     }
 
@@ -427,7 +445,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         Intent intentUpdateGroup = new Intent();
         intentUpdateGroup.setAction(MainUtils.UPDATE_FAMILY_GROUP);
         getApplicationContext().sendBroadcast(intentUpdateGroup);
-        sendNotificationAccept("Tap here to manage new family.","New family has been created by parent.");
+        sendNotificationAccept("Tap here to manage new family.", "New family has been created by parent.");
 
     }
 
@@ -446,8 +464,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     }
 
-    protected Boolean isActivityRunning(Class activityClass)
-    {
+    protected Boolean isActivityRunning(Class activityClass) {
         ActivityManager activityManager = (ActivityManager) getBaseContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> tasks = activityManager.getRunningTasks(Integer.MAX_VALUE);
 
@@ -459,21 +476,21 @@ public class MyGcmPushReceiver extends GcmListenerService {
         return false;
     }
 
-    public void clearChildData(){
+    public void clearChildData() {
         ArrayList<ChildKeepFocusItem> chilList = mDataHelper.getAllKeepFocusFromDb();
-        if(chilList!=null) {
+        if (chilList != null) {
             for (int i = 0; i < chilList.size(); i++) {
                 mDataHelper.deleteFocusItemById(chilList.get(i).getKeepFocusId());
             }
         }
     }
 
-    public void clearChildDeviceData(){
+    public void clearChildDeviceData() {
         ArrayList<ChildKeepFocusItem> childList = mDataHelper.getAllKeepFocusFromDb();
-        if(childList!=null) {
+        if (childList != null) {
             for (int i = 0; i < childList.size(); i++) {
                 ArrayList<ChildTimeItem> listTimeItems = childList.get(i).getListTimeFocus();
-                for (int j = 0; j < listTimeItems.size(); j ++){
+                for (int j = 0; j < listTimeItems.size(); j++) {
                     mDataHelper.deleteTimeItemById(listTimeItems.get(j).getTimeId());
                 }
                 mDataHelper.deleteFocusItemById(childList.get(i).getKeepFocusId());
@@ -486,7 +503,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         JSONObject data = new JSONObject(message);
         JSONObject scheduler = data.getJSONObject("Scheduler");
         JSONArray timeItem = data.getJSONArray("TimeItems");
-        Log.d(TAG,"timeItem "+timeItem);
+        Log.d(TAG, "timeItem " + timeItem);
         childProfile = new ChildKeepFocusItem();
         childProfile.setNameFocus(scheduler.getString("scheduler_name"));
         childProfile.setActive(isActive(scheduler.getInt("isActive")));
@@ -494,9 +511,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
         childProfile.setId_profile_server(scheduler.getInt("id"));
 
 
-
         ArrayList<ChildTimeItem> arrayList = new ArrayList(timeItem.length());
-        for(int i=0;i < timeItem.length();i++){
+        for (int i = 0; i < timeItem.length(); i++) {
             ChildTimeItem item1 = new ChildTimeItem();
             item1.setKeepFocusId(timeItem.getJSONObject(i).getInt("scheduler_id"));
             item1.setHourBegin(timeItem.getJSONObject(i).getInt("start_hours"));
@@ -524,7 +540,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         JSONObject device = data.getJSONObject("Device");
         int id_member_server = device.getInt("id");
         JSONArray timeItem = data.getJSONArray("TimeItems");
-        Log.d(TAG,"timeItem "+timeItem);
+        Log.d(TAG, "timeItem " + timeItem);
         ParentProfileItem parentProfileItem = new ParentProfileItem();
 
         parentProfileItem.setName_profile(scheduler.getString("scheduler_name"));
@@ -533,9 +549,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
         parentProfileItem.setId_profile_server(scheduler.getInt("id"));
 
 
-
         ArrayList<ParentTimeItem> arrayList = new ArrayList(timeItem.length());
-        for(int i=0;i < timeItem.length();i++){
+        for (int i = 0; i < timeItem.length(); i++) {
             ParentTimeItem item1 = new ParentTimeItem();
             item1.setId_profile(timeItem.getJSONObject(i).getInt("scheduler_id"));
             item1.setHourBegin(timeItem.getJSONObject(i).getInt("start_hours"));
@@ -565,12 +580,12 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
 
         ArrayList<ChildKeepFocusItem> chilList = mDataHelper.getAllKeepFocusFromDb();
-        if(chilList!=null){
+        if (chilList != null) {
             MainUtils.childKeepFocusItem = chilList.get(0);//for null case
-            for(int i=0;i < chilList.size();i++){
-                if(scheduler.getInt("id") == chilList.get(i).getId_profile_server()){
+            for (int i = 0; i < chilList.size(); i++) {
+                if (scheduler.getInt("id") == chilList.get(i).getId_profile_server()) {
                     MainUtils.childKeepFocusItem = chilList.get(i);
-                    Log.d(TAG,"id "+chilList.get(i).getId_profile_server());
+                    Log.d(TAG, "id " + chilList.get(i).getId_profile_server());
                 }
             }
             MainUtils.childKeepFocusItem.setNameFocus(scheduler.getString("scheduler_name"));
@@ -579,7 +594,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
             //ArrayList<ChildTimeItem> arrayList = new ArrayList(timeItem.length());
             mDataHelper.deleteTimeItemByKeepFocusId(MainUtils.childKeepFocusItem.getKeepFocusId());
-            for(int i=0;i < timeItem.length();i++){
+            for (int i = 0; i < timeItem.length(); i++) {
                 ChildTimeItem item1 = new ChildTimeItem();
                 item1.setKeepFocusId(timeItem.getJSONObject(i).getInt("scheduler_id"));
                 item1.setHourBegin(timeItem.getJSONObject(i).getInt("start_hours"));
@@ -589,9 +604,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 item1.setTimeId(timeItem.getJSONObject(i).getInt("id"));
 
                 mDataHelper.addTimeItemToDb(item1,
-                            MainUtils.childKeepFocusItem.getKeepFocusId());
+                        MainUtils.childKeepFocusItem.getKeepFocusId());
                 MainUtils.childKeepFocusItem.getListTimeFocus()
-                            .add(item1);
+                        .add(item1);
             }
 
 
@@ -603,7 +618,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
             getApplicationContext().sendBroadcast(intent);
             sendNotificationCreate("", "SetLimitz has updated your schedule");
 
-        }else {//if null, create new
+        } else {//if null, create new
             createNewScheduler(message);
         }
     }
@@ -628,7 +643,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         parentProfileItem.setId_profile(mDataHelper.getIdProfileItemByIdServer(id_profile_server));
         //ArrayList<ParentTimeItem> arrayList = new ArrayList(timeItem.length());
         mDataHelper.deleteTimerParentItemByProfileId(parentProfileItem.getId_profile());
-        for(int i=0;i < timeItem.length(); i++) {
+        for (int i = 0; i < timeItem.length(); i++) {
             ParentTimeItem item1 = new ParentTimeItem();
             item1.setId_profile(timeItem.getJSONObject(i).getInt("scheduler_id"));
             item1.setHourBegin(timeItem.getJSONObject(i).getInt("start_hours"));
@@ -659,9 +674,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
         JSONObject scheduler = data.getJSONObject("Scheduler");
 
         ArrayList<ChildKeepFocusItem> chilList = mDataHelper.getAllKeepFocusFromDb();
-        if(chilList!=null){
-            for(int i=0;i < chilList.size();i++){
-                if(scheduler.getInt("id") == chilList.get(i).getId_profile_server()){
+        if (chilList != null) {
+            for (int i = 0; i < chilList.size(); i++) {
+                if (scheduler.getInt("id") == chilList.get(i).getId_profile_server()) {
                     mDataHelper.deleteFocusItemById(chilList.get(i).getKeepFocusId());
                 }
             }
@@ -688,18 +703,57 @@ public class MyGcmPushReceiver extends GcmListenerService {
         //sendNotificationCreate("", "A schedule has been deleted");
     }
 
+    private void handleBlockForParentAndManager(String message, String type) throws JSONException {
+        JSONObject data = new JSONObject(message);
+        JSONObject Device = data.getJSONObject("Device");
+        int id_member_server = Device.getInt("id");
+        ParentMemberItem member = mDataHelper.getMemberItemByIdServer(id_member_server);
+        String titleNoti = "";
+        Intent intent = new Intent();
+        //
+        if (type.equals(BLOCKALL)) {
+            member.setIs_blockall(1);
+            intent.setAction(MainUtils.BLOCK_ALL);
+            titleNoti = "One member have been block all";
+
+        } else if (type.equals(UNBLOCKALL)) {
+            member.setIs_blockall(0);
+            intent.setAction(MainUtils.UNBLOCK_ALL);
+            titleNoti = "One member have been un block all";
+        } else if (type.equals(ALLOWALL)) {
+            member.setIs_alowall(1);
+            intent.setAction(MainUtils.ALLOW_ALL);
+            titleNoti = "One member have been allow all";
+        } else if (type.equals(UNALLOWALL)) {
+            member.setIs_alowall(0);
+            intent.setAction(MainUtils.UNALLOW_ALL);
+            titleNoti = "One member have been un allow all";
+        } else if (type.equals(BLOCK_SETTINGS)) {
+            member.setIs_blocksettings(1);
+            intent.setAction(MainUtils.BLOCK_SETTINGS);
+            titleNoti = "One member have been block settings";
+        } else if (type.equals(UN_BLOCK_SETTINGS)) {
+            member.setIs_blocksettings(0);
+            intent.setAction(MainUtils.UN_BLOCK_SETTINGS);
+            titleNoti = "One member have been un block settings";
+        }
+        //
+        mDataHelper.updateMemberItem(member);
+        getApplicationContext().sendBroadcast(intent);
+        sendNotificationAccept("", titleNoti);
+    }
 
 
     public void setJoinGroup(JSONObject data) throws JSONException {
 
-        Log.d(TAG,"JsonObject join data : " + data);
+        Log.d(TAG, "JsonObject join data : " + data);
         JSONObject messages = data.getJSONObject("message");
         ParentMemberItem joinDevice = new ParentMemberItem();
         family_id = data.getString("FamilyID");
         //String group_code = data.getString("FamilyID");//not have now
 
         //String group_code = "MKXS7E";//for test
-        if(family_id !=null) {
+        if (family_id != null) {
             MainUtils.parentGroupItem = mDataHelper.getGroupByCode(family_id);
 
         }
@@ -711,15 +765,15 @@ public class MyGcmPushReceiver extends GcmListenerService {
             MainUtils.parentGroupItem = mDataHelper.getAllGroupItemParent().get(0);//add to first
         }
         //ParentGroupItem joinToGroup = new ParentGroupItem();
-        Log.d(TAG,"join To Group "+MainUtils.parentGroupItem.getGroup_name());
+        Log.d(TAG, "join To Group " + MainUtils.parentGroupItem.getGroup_name());
         //MainUtils.parentGroupItem = joinToGroup;
 
         int type;
-        if(messages.getString("device_mode").trim().equals(JoinGroupActivity.MANAGER)) {
-            Log.d(TAG,"type manager " + messages.getString("device_mode").trim());
+        if (messages.getString("device_mode").trim().equals(JoinGroupActivity.MANAGER)) {
+            Log.d(TAG, "type manager " + messages.getString("device_mode").trim());
             type = 1;
-        } else{
-            Log.d(TAG,"type child " + messages.getString("device_mode").trim());
+        } else {
+            Log.d(TAG, "type child " + messages.getString("device_mode").trim());
             type = 0;
         }
         try {
@@ -727,12 +781,12 @@ public class MyGcmPushReceiver extends GcmListenerService {
             joinDevice.setName_member(messages.getString("device_name"));
             joinDevice.setType_member(type);
 
-            mDataHelper.addMemberItemParent(joinDevice,MainUtils.parentGroupItem.getId_group());
+            mDataHelper.addMemberItemParent(joinDevice, MainUtils.parentGroupItem.getId_group());
             Log.e("thong.nv", "MainUtils.parentGroupItem.getListMember() before " + MainUtils.parentGroupItem.getListMember().size());
             MainUtils.parentGroupItem.getListMember().add(joinDevice);
             mDataHelper.makeDetailOneGroupItemParent(MainUtils.parentGroupItem);
 
-            contentNotification = "Device name: "+ messages.getString("device_name")
+            contentNotification = "Device name: " + messages.getString("device_name")
                     /*+ ", Model " + messages.getString("device_model")
                     + ", Mode " + messages.getString("device_mode")
                     + ", Type " + messages.getString("device_type")*/;
@@ -746,22 +800,22 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     }
 
-    public void setReplaceDevice(JSONObject data) throws JSONException{
-        Log.d("vinh","JsonObject replace data : " + data);
+    public void setReplaceDevice(JSONObject data) throws JSONException {
+        Log.d("vinh", "JsonObject replace data : " + data);
         JSONObject messages = data.getJSONObject("message");
         int memberIDServer = messages.getInt("id");
         ArrayList<ParentMemberItem> listMemberParent = MainUtils.parentGroupItem.getListMember();
-        for (int i = 0; i < listMemberParent.size(); i ++){
-             if (listMemberParent.get(i).getId_member_server() == memberIDServer){
-                 listMemberParent.get(i).setName_member(messages.getString("device_name"));
-                 mDataHelper.updateMemberItem(listMemberParent.get(i));
-             }
+        for (int i = 0; i < listMemberParent.size(); i++) {
+            if (listMemberParent.get(i).getId_member_server() == memberIDServer) {
+                listMemberParent.get(i).setName_member(messages.getString("device_name"));
+                mDataHelper.updateMemberItem(listMemberParent.get(i));
+            }
         }
         /*ParentMemberItem replaceDevice = mDataHelper.getMemberItemById();
         Log.d("vinh","JsonObject replaceDevice : " + replaceDevice);
         replaceDevice.setName_member(messages.getString("device_name"));
         mDataHelper.updateMemberItem(replaceDevice);*/
-        contentNotification = "Device " +messages.getString("device_name");
+        contentNotification = "Device " + messages.getString("device_name");
         sendNotification(contentNotification, "A device has been replaced in your family");
     }
 
@@ -811,7 +865,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     private void sendNotificationAccept(String message, String title) {
         Intent intent = new Intent(this, FamilyManagerment.class);
-        intent.putExtra("NotificationAccept",true);
+        intent.putExtra("NotificationAccept", true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
@@ -834,7 +888,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     private void sendNotificationReject(String message, String title) {
         Intent intent = new Intent(this, SetupWizardActivity.class);
-        intent.putExtra("NotificationAccept",true);
+        intent.putExtra("NotificationAccept", true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
@@ -876,17 +930,17 @@ public class MyGcmPushReceiver extends GcmListenerService {
         //int time = (int)System.currentTimeMillis();
 
         Intent intentAccept = new Intent(this, NotificationButtonListener.class);
-        intentAccept.putExtra("Confirm",true);
-        intentAccept.putExtra("Device",deviceObject);
-        intentAccept.putExtra("Group",familyObject);
+        intentAccept.putExtra("Confirm", true);
+        intentAccept.putExtra("Device", deviceObject);
+        intentAccept.putExtra("Group", familyObject);
         //intentAccept.putExtra("ID",time);
         PendingIntent pendingIntentAccept = PendingIntent.getBroadcast(this, 0 /* Request code */, intentAccept,
                 PendingIntent.FLAG_ONE_SHOT);
         //
         Intent intentDeny = new Intent(this, NotificationButtonListener.class);
-        intentDeny.putExtra("Confirm",false);
-        intentDeny.putExtra("Device",deviceObject);
-        intentDeny.putExtra("Group",familyObject);
+        intentDeny.putExtra("Confirm", false);
+        intentDeny.putExtra("Device", deviceObject);
+        intentDeny.putExtra("Group", familyObject);
         //intentDeny.putExtra("ID",time);
         PendingIntent pendingIntentDeny = PendingIntent.getBroadcast(this, 1 /* Request code */, intentDeny,
                 PendingIntent.FLAG_ONE_SHOT);
@@ -897,8 +951,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 .setSmallIcon(R.drawable.icon_app)
                 .setContentTitle(title)
                 .setContentText(message)
-                .addAction(R.color.transparent,"Accept",pendingIntentAccept)
-                .addAction(R.color.transparent,"Reject",pendingIntentDeny)
+                .addAction(R.color.transparent, "Accept", pendingIntentAccept)
+                .addAction(R.color.transparent, "Reject", pendingIntentDeny)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri);
         Notification noti = notificationBuilder.build();
@@ -920,9 +974,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
             String group = intent.getStringExtra("Group");
             GroupRequestController groupRequestController = new GroupRequestController(context);
             if (confirm) {
-                groupRequestController.managerJoinGroup(device,group,0);
+                groupRequestController.managerJoinGroup(device, group, 0);
             } else {
-                groupRequestController.managerJoinGroup(device,group,1);
+                groupRequestController.managerJoinGroup(device, group, 1);
             }
             NotificationManager notificationManager =
                     (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -940,5 +994,6 @@ public class MyGcmPushReceiver extends GcmListenerService {
         editor.putBoolean(MainUtils.IS_BLOCK_SETTINGS, false);
         editor.commit();
     }
+
 }
 
