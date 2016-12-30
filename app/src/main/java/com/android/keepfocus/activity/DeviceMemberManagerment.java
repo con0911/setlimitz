@@ -930,12 +930,10 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
                     public void onClick(DialogInterface dialog, int whichButton) {
                         MainUtils.memberItem = listBlockPropertiesArr.get(position);
                         deviceRequestController.deleteDeviceInServer();
-                        mDataHelper.deleteMemberItemById(adapterMember.getItem(mPosition).getId_member());
-                        MainUtils.parentGroupItem.getListMember().remove(mPosition);
-                        displayMember();
-                        finish();
-                        Intent deviceManagement = new Intent(mContext, DeviceMemberManagerment.class);
-                        startActivity(deviceManagement);
+                        //displayMember();
+                        //finish();
+                        //Intent deviceManagement = new Intent(mContext, DeviceMemberManagerment.class);
+                        //startActivity(deviceManagement);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
