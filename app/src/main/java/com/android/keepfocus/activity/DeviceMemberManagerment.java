@@ -48,6 +48,7 @@ import com.android.keepfocus.server.request.controllers.DeviceRequestController;
 import com.android.keepfocus.server.request.controllers.SchedulerRequestController;
 import com.android.keepfocus.settings.CircleMemberAdapter;
 import com.android.keepfocus.settings.CustomListView;
+import com.android.keepfocus.utils.Constants;
 import com.android.keepfocus.utils.HorizontalListView;
 import com.android.keepfocus.utils.MainUtils;
 
@@ -916,7 +917,11 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
     }
 
     public void onItemLongClick(int position) {
-        deleteDevice(position);
+        if (SetupWizardActivity.getModeDevice(mContext) == Constants.Manager) {
+            Toast.makeText(mContext, "You do not have permission to delete this device.", Toast.LENGTH_LONG).show();
+        } else {
+            deleteDevice(position);
+        }
     }
 
     public void deleteDevice(final int position) {
