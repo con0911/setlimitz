@@ -219,6 +219,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                             handleNotification(SEND_MESSAGES_CREATE_GROUP, message);
                         } else if (thisMessage.getString("tickerText").equals(SEND_MESSAGES_UPDATE_GROUP)) {
                             handleNotification(SEND_MESSAGES_UPDATE_GROUP, message);
+                        } else {
+                            setReplaceDevice(thisMessage);
                         }
                     }
                     break;
@@ -816,6 +818,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
         mDataHelper.updateMemberItem(replaceDevice);*/
         contentNotification = "Device " + messages.getString("device_name");
         sendNotification(contentNotification, "A device has been replaced in your family");
+        Intent intent = new Intent();
+        intent.setAction(MainUtils.UPDATE_CHILD_DEVICE);
+        getApplicationContext().sendBroadcast(intent);
     }
 
     private void sendNotification(String message, String title) {

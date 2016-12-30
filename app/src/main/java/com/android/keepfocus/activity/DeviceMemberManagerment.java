@@ -126,18 +126,22 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
             } else if (MainUtils.BLOCK_ALL.equals(action)) {
                 Log.d(TAG, "Success need handle BLOCK_ALL ");
                 adapterMember.notifyDataSetChanged();
+                displayMember();
                 //
             } else if (MainUtils.UNBLOCK_ALL.equals(action)) {
                 Log.d(TAG, "Success need handle UNBLOCK_ALL ");
                 adapterMember.notifyDataSetChanged();
+                displayMember();
                 //
             } else if (MainUtils.ALLOW_ALL.equals(action)) {
                 Log.d(TAG, "Success need handle ALLOW_ALL ");
                 adapterMember.notifyDataSetChanged();
+                displayMember();
                 //
             } else if (MainUtils.UNALLOW_ALL.equals(action)) {
                 Log.d(TAG, "Success need handle UNALLOW_ALL  ");
                 adapterMember.notifyDataSetChanged();
+                displayMember();
                 //
             }
         }
@@ -627,6 +631,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         lable = new boolean[adapterMember.getCount()];
 
     }
+
 
     public void displayDetailTime() {
         if (MainUtils.memberItem == null) {
