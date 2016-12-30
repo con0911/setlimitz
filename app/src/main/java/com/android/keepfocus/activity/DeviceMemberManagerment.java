@@ -917,10 +917,10 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
     }
 
     public void onItemLongClick(int position) {
-        if (SetupWizardActivity.getModeDevice(mContext) == Constants.Manager) {
-            Toast.makeText(mContext, "You do not have permission to delete this device.", Toast.LENGTH_LONG).show();
-        } else {
+        if (SetupWizardActivity.getModeDevice(mContext) == Constants.Admin) {
             deleteDevice(position);
+        } else {
+            Toast.makeText(mContext, "You do not have permission to delete this device.", Toast.LENGTH_LONG).show();
         }
     }
 
