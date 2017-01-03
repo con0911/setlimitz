@@ -357,6 +357,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         Intent intentUpdateGroup = new Intent();
                         intentUpdateGroup.setAction(MainUtils.UPDATE_FAMILY_GROUP);
                         getApplicationContext().sendBroadcast(intentUpdateGroup);
+                        sendNotificationAccept("", "A family has been deleted!");
+
                     }
 
                     //if(isActivityRunning(ChildSchedulerActivity.class)) {
@@ -386,6 +388,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                         Intent intentUpdateMember = new Intent();
                         intentUpdateMember.setAction(MainUtils.UPDATE_CHILD_DEVICE);
                         getApplicationContext().sendBroadcast(intentUpdateMember);
+                        sendNotification("", "A device has been deleted from family");
                     }
                     break;
 
@@ -447,7 +450,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         Intent intentUpdateGroup = new Intent();
         intentUpdateGroup.setAction(MainUtils.UPDATE_FAMILY_GROUP);
         getApplicationContext().sendBroadcast(intentUpdateGroup);
-        sendNotificationAccept("Tap here to manage new family.", "New family has been created by parent.");
+        sendNotification("Tap here to manage new family.", "New family has been created by parent.");
 
     }
 
@@ -462,7 +465,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         Intent intentUpdateGroup = new Intent();
         intentUpdateGroup.setAction(MainUtils.UPDATE_FAMILY_GROUP);
         getApplicationContext().sendBroadcast(intentUpdateGroup);
-        //sendNotificationAccept("","A family has been update by parent.");
+        sendNotification("","A family has been update by parent.");
 
     }
 
@@ -571,7 +574,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         Intent intent = new Intent();
         intent.setAction(MainUtils.UPDATE_CHILD_DEVICE);
         getApplicationContext().sendBroadcast(intent);
-        sendNotificationAccept("", "New schedule has been created");
+        sendNotification("", "New schedule has been created");
     }
 
     public void updateScheduler(String message) throws JSONException {
@@ -666,7 +669,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         Intent intent = new Intent();
         intent.setAction(MainUtils.UPDATE_SCHEDULER);
         getApplicationContext().sendBroadcast(intent);
-        sendNotificationAccept("", "SetLimitz has updated your child's schedule");
+        sendNotification("", "SetLimitz has updated your child's schedule");
 
     }
 
@@ -701,7 +704,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         Intent intent = new Intent();
         intent.setAction(MainUtils.UPDATE_CHILD_DEVICE);
         getApplicationContext().sendBroadcast(intent);
-        sendNotificationAccept("", "SetLimitz has deleted your child's schedule");
+        sendNotification("", "SetLimitz has deleted your child's schedule");
         //sendNotificationCreate("", "A schedule has been deleted");
     }
 
