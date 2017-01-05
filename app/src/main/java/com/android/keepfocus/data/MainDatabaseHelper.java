@@ -782,10 +782,11 @@ public class MainDatabaseHelper extends SQLiteOpenHelper {
             memberItem.setIs_blockall(is_blockall);
             memberItem.setIs_alowall(is_alowall);
             memberItem.setIs_blocksettings(is_blocksettings);
+            return memberItem;
         }
-        dbMain.close();
+        //dbMain.close();
         //     dbMain = null;
-        return memberItem;
+        return null;
     }
 
     public void makeListMemberInGroup(ParentGroupItem groupItem) {

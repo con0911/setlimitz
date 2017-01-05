@@ -70,7 +70,7 @@ public class SetupWizardActivity extends Activity implements View.OnClickListene
         }
         setContentView(R.layout.set_up_mode);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setTitle("Cavnus");
+        setTitle(R.string.app_name);
         btnParent = (Button) findViewById(R.id.btn_parent);
         btnAddParent = (Button) findViewById(R.id.btn_additional_parent);
         btnChild = (Button) findViewById(R.id.btn_child);

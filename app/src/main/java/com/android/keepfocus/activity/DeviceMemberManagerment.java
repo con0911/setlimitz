@@ -165,7 +165,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         if (MainUtils.parentGroupItem != null) {
             setTitle(MainUtils.parentGroupItem.getGroup_name() + "'s Family");
         } else {
-            setTitle("Unknown Family");
+            setTitle(R.string.unknow_family +" Family");
         }
         mDataHelper = new MainDatabaseHelper(mContext);
 

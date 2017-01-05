@@ -33,7 +33,7 @@
             android:layout_marginTop="@dimen/button_choose_mode_margin_top"
             android:background="@drawable/btn_border"
             android:gravity="center"
-            android:text="PARENT DEVICE"
+            android:text="@string/parent_device"
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
 
@@ -44,7 +44,7 @@
             android:layout_marginTop="50dp"
             android:background="@drawable/btn_border"
             android:gravity="center"
-            android:text="ADDITIONAL PARENT DEVICE"
+            android:text="@string/add_parent_device"
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
 
@@ -55,7 +55,7 @@
             android:layout_marginTop="50dp"
             android:background="@drawable/btn_border"
             android:gravity="center"
-            android:text="CHILD DEVICE"
+            android:text="@string/child_device"
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
 

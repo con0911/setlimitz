@@ -83,8 +83,8 @@ public class CircleMemberAdapter extends FancyCoverFlowAdapter {
         addmember = (TextView) convertView.findViewById(R.id.txt_center_side);
         allowAll = (TextView) convertView.findViewById(R.id.txt_right_side);
         name = (TextView) convertView.findViewById(R.id.family_name);
-        blockall.setText("Block all");
-        allowAll.setText("Allow all");
+        blockall.setText(R.string.block_all);
+        allowAll.setText(R.string.allow_all);
         addmember.setText(R.string.delete_device);
         blockallLayout = (LinearLayout) convertView.findViewById(R.id.btn_left_side);
         allowallLayout = (LinearLayout) convertView.findViewById(R.id.btn_right_side);
@@ -95,18 +95,18 @@ public class CircleMemberAdapter extends FancyCoverFlowAdapter {
 
         if (profileItem.getIs_blockall() == 1) {
             blockallLayout.setBackgroundResource(R.drawable.circle_left_side_press);
-            blockall.setText("Return to\nSchedule");
+            blockall.setText(R.string.return_to_schedule);
         } else {
             blockallLayout.setBackgroundResource(R.drawable.circle_left_side_no_press);
-            blockall.setText("Block All");
+            blockall.setText(R.string.block_all);
         }
 
         if (profileItem.getIs_alowall() == 1) {
-            allowAll.setText("Return to\nSchedule");
+            allowAll.setText(R.string.return_to_schedule);
             allowallLayout.setBackgroundResource(R.drawable.circle_right_side_press);
         } else {
             allowallLayout.setBackgroundResource(R.drawable.circle_right_side_no_press);
-            allowAll.setText("Allow All");
+            allowAll.setText(R.string.allow_all);
         }
         if (profileItem.getIcon_array_byte() == null) {
             Bitmap icon = BitmapFactory.decodeResource(activity.getResources(),R.drawable.person);

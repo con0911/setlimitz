@@ -6,7 +6,7 @@
     <TextView
         android:id="@+id/family_name"
         android:layout_width="match_parent"
-        android:text="Unknown"
+        android:text="@string/unknow_family"
         android:textColor="@color/black"
         android:gravity="center"
         android:layout_marginBottom="@dimen/activity_vertical_margin"

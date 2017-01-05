@@ -383,7 +383,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
                 } else if (SetupWizardActivity.getModeDevice(mContext) == Constants.Manager
                         && !(joinFamilyIDText.getText().toString().isEmpty() || nameDevice.getText().toString().isEmpty())) {
                     if (isNameInValid(joinFamilyIDText.getText().toString()) || isNameInValid(nameDevice.getText().toString())){
-                        final Toast errorInput = Toast.makeText(mContext, "The name or FamilyIDcannot contain space", Toast.LENGTH_SHORT);
+                        final Toast errorInput = Toast.makeText(mContext, "The name or FamilyID cannot contain space", Toast.LENGTH_SHORT);
                         errorInput.show();
                         MainUtils.extendDisplayTimeOfToast(errorInput);
                     }

@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="25dp"
                 android:textColor="@color/main_action_bar_bg"
-                android:text="Family ID"/>
+                android:text="@string/enter_family_id"/>
         </LinearLayout>
 
         <LinearLayout

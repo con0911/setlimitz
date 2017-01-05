@@ -132,7 +132,7 @@
                 android:layout_below="@+id/email_sign_in_button"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="Forgot Password?"
+                android:text="@string/forgot_password"
                 android:textColor="#fafafa"
                 android:textColorLink="@color/title_text_color" />
 
@@ -152,7 +152,7 @@
                     android:layout_marginBottom="@dimen/button_margin_bottom"
                     android:background="@drawable/btn_signup"
                     android:gravity="center"
-                    android:text="CREATE A NEW SETLIMITZ ACCOUNT"
+                    android:text="@string/register_account"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textColor="#fafafa"
