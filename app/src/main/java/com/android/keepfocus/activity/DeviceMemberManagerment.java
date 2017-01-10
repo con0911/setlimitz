@@ -766,6 +766,9 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
             });
             builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                    if (mAlertDialog != null && mAlertDialog.isShowing()){
+                        mAlertDialog.dismiss();
+                    }
                     dialog.cancel();
                 }
             });
