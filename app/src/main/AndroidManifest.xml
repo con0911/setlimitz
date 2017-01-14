@@ -45,6 +45,7 @@
         <activity
             android:name=".activity.SetupWizardActivity"
             android:theme="@style/CustomizeActionbarAppTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -81,6 +82,9 @@
         </receiver>
         <activity
             android:name="com.android.keepfocus.activity.BlockLauncher"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:launchMode="singleInstance"
             android:theme="@style/CustomizeActionbarAppTheme">
         </activity>
 

@@ -113,14 +113,14 @@ public class DeviceRequestController {
                         mDataHelper.deleteMemberItemById(MainUtils.memberItem.getId_member());
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Error in server " + description_result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server " + description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't delete device! Error in database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Can't delete device! Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if ((mDialog != null) && mDialog.isShowing()) {
                 //mDialog.dismiss(); //fc issue
@@ -187,18 +187,18 @@ public class DeviceRequestController {
                         Log.d(TAG, "description_result" + description_result);
                         if (description_result.equals("1")) {
                             isSuccess = true;
-                            Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "Success", Toast.LENGTH_LONG).show();
                         } else {
                             isSuccess = false;
-                            Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "Error", Toast.LENGTH_LONG).show();
                         }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(mContext, "Error parsing JSON data.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error parsing JSON data.", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(mContext, "Couldn't get any JSON data.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Couldn't get any JSON data.", Toast.LENGTH_LONG).show();
                 }
             }
         };

@@ -259,14 +259,14 @@ public class GroupRequestController {
                         mDataHelper.addGroupItemParent(MainUtils.parentGroupItem);
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't create new family! Error in database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Can't create new family! Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -480,16 +480,16 @@ public class GroupRequestController {
                         updateSuccess();
                     } else {
                         MainUtils.mIsEditNameGroup = false;
-                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     MainUtils.mIsEditNameGroup = false;
-                    Toast.makeText(mContext, "Can't update family! Error in database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Can't update family! Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
                 MainUtils.mIsEditNameGroup = false;
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -535,14 +535,14 @@ public class GroupRequestController {
                         mDataHelper.deleteGroupItemById(MainUtils.parentGroupItem.getId_group());
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Error in server " + description_result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server " + description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't delete family! Error in database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Can't delete family! Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -607,10 +607,10 @@ public class GroupRequestController {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Error in database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check internet!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check internet!", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -720,18 +720,18 @@ public class GroupRequestController {
                             }
                         }
                     } else {
-                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_LONG).show();
                         listLicense = null;
                     }
                 } catch (JSONException e) {
                     listLicense = null;
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't get list license! Error in database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Can't get list license! Error in database", Toast.LENGTH_LONG).show();
                 }
                 JoinGroupActivity joinGroupActivity = (JoinGroupActivity) mContext;//show license
                 joinGroupActivity.setLicenseList(listLicense);
             } else {
-                Toast.makeText(mContext, "Please check internet!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check internet!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();

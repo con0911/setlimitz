@@ -483,7 +483,7 @@ public class FamilyManagerment extends Activity{
 
     public void changeIcon(int position) {
         MainUtils.parentGroupItem = adapterGroup.getItem(position);
-        Toast.makeText(this, "Change avatar", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Change avatar", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         positionNow = position;
         startActivityForResult(i, PICK_IMAGE);
@@ -608,7 +608,7 @@ public class FamilyManagerment extends Activity{
 
     public void renameGroup() {
         if (SetupWizardActivity.getModeDevice(mContext) == Constants.Manager) {
-            Toast.makeText(mContext, "You don't have this permission.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "You don't have this permission.", Toast.LENGTH_LONG).show();
             return;
         }
         mView = getLayoutInflater().inflate(R.layout.edit_name_popup_layout, null);

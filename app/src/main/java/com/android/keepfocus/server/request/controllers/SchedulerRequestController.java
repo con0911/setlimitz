@@ -197,14 +197,14 @@ public class SchedulerRequestController {
 
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't create new scheduler! Error in database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Can't create new scheduler! Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check internet!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check internet!", Toast.LENGTH_LONG).show();
             }
             mDialog.dismiss();
         }
@@ -276,14 +276,14 @@ public class SchedulerRequestController {
                         }
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -479,14 +479,14 @@ public class SchedulerRequestController {
                         MainUtils.memberItemForBlockAll.setIs_blockall(1);
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -534,14 +534,14 @@ public class SchedulerRequestController {
                         MainUtils.memberItemForBlockAll.setIs_blockall(0);
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -589,14 +589,14 @@ public class SchedulerRequestController {
                         MainUtils.memberItemForBlockAll.setIs_alowall(1);
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -644,14 +644,14 @@ public class SchedulerRequestController {
                         MainUtils.memberItemForBlockAll.setIs_alowall(0);
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -697,17 +697,17 @@ public class SchedulerRequestController {
                         //Handle Success
                         updateSuccess(MainUtils.BLOCK_SETTINGS);
                         MainUtils.memberItemForBlockAll.setIs_blocksettings(1);
-                        Toast.makeText(mContext, "Block settings successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Block settings successful", Toast.LENGTH_LONG).show();
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -754,16 +754,16 @@ public class SchedulerRequestController {
                         updateSuccess(MainUtils.UN_BLOCK_SETTINGS);
                         MainUtils.memberItemForBlockAll.setIs_blocksettings(0);
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
-                        Toast.makeText(mContext, "Unblock settings successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Unblock settings successful", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();

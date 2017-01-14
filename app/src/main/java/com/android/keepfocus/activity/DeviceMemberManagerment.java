@@ -651,7 +651,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
 
     public void changeIcon(int position) {
         MainUtils.memberItem = adapterMember.getItem(position);
-        Toast.makeText(this, "Change avatar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Change avatar", Toast.LENGTH_LONG).show();
         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         positionNow = position;
         startActivityForResult(i, PICK_IMAGE);

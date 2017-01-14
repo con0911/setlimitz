@@ -96,16 +96,16 @@ public class LoginRequestController {
                         mContext.startActivity(groupManagement);
                     } else {
                         isSuccess = false;
-                        Toast.makeText(mContext, "Your password or email is wrong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Your password or email is wrong", Toast.LENGTH_LONG).show();
                         Intent login = new Intent(mContext, LoginActivity.class);
                         mContext.startActivity(login);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't create new family! Error in database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Can't create new family! Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
                 LoginActivity loginActivity = (LoginActivity) mContext;
                 loginActivity.finish();
                 Intent login = new Intent(mContext, LoginActivity.class);
