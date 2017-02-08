@@ -726,7 +726,11 @@ public class GroupRequestController {
                 } catch (JSONException e) {
                     listLicense = null;
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't get list license! Error in database", Toast.LENGTH_LONG).show();
+                    if (typeRequest == Constants.ActionTypeGetLicenseUsed) {
+                        Toast.makeText(mContext, "Please select New! No used licenses in your account", Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(mContext, "No available licenses in your account", Toast.LENGTH_LONG).show();
+                    }
                 }
                 JoinGroupActivity joinGroupActivity = (JoinGroupActivity) mContext;//show license
                 joinGroupActivity.setLicenseList(listLicense);

@@ -13,13 +13,13 @@
     <string name="parent_mode">Parent</string>
     <string name="child_mode">Children</string>
     <string name="license_type">License Type</string>
-    <string name="used_license">Used</string>
-    <string name="unused_license">Unused</string>
+    <string name="used_license">Replacing\nDevice</string>
+    <string name="unused_license">New\nDevice</string>
     <string name="active_code">Activation code</string>
     <string name="done_button">OK</string>
     <string name="devices">Devices</string>
     <string name="family_management">Family</string>
-    <string name="manager_management">Additional Family</string>
+    <string name="manager_management">Additional Parent</string>
     <string name="delete_device">Delete</string>
 
     <string name="scan_qr_checkbox">Use scan QR code</string>

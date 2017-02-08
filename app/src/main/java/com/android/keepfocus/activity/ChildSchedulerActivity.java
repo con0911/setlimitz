@@ -29,6 +29,8 @@ import com.android.keepfocus.utils.Constants;
 import com.android.keepfocus.utils.MainUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ChildSchedulerActivity extends Activity {
     private static final String TAG = "ChildSchedulerActivity";
@@ -78,11 +80,13 @@ public class ChildSchedulerActivity extends Activity {
             mBtnRestore.setVisibility(View.VISIBLE);
         }else {
             mBtnRestore.setVisibility(View.GONE);
+            JoinGroupActivity.setBundle("join");
         }
         mBtnRestore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                  mSchedulerRequestController.restoreSchedulerForChild();
+                JoinGroupActivity.setBundle("join");
             }
         });
     }
@@ -163,6 +167,9 @@ public class ChildSchedulerActivity extends Activity {
 
     public void displayProfile() {
         listBlockPropertiesArr = mDataHelper.getAllKeepFocusFromDb();
+        if (listBlockPropertiesArr.size()>0) {
+            Collections.sort(listBlockPropertiesArr, ChildComparators.DAY);
+        }
         mProfileAdapter = new ChildKeepFocusAdapter(this, R.layout.tab_group,
                 0, listBlockPropertiesArr);
         listProperties.setAdapter(mProfileAdapter);
@@ -172,6 +179,26 @@ public class ChildSchedulerActivity extends Activity {
             mTextNoGroup.setText("");
         }
 
+    }
+
+    public static class ChildComparators {
+        public static Comparator<ChildKeepFocusItem> DAY = new Comparator<ChildKeepFocusItem>() {
+            @Override
+            public int compare(ChildKeepFocusItem day1, ChildKeepFocusItem day2) {
+                return coverDayNumber(day1.getDayFocus()).compareTo(coverDayNumber(day2.getDayFocus()));
+            }
+        };
+        private static String coverDayNumber (String day) {
+            String dayNumber = day;
+            dayNumber = dayNumber.replace("Sun","1");
+            dayNumber = dayNumber.replace("Mon","2");
+            dayNumber = dayNumber.replace("Tue","3");
+            dayNumber = dayNumber.replace("Wed","4");
+            dayNumber = dayNumber.replace("Thu","5");
+            dayNumber = dayNumber.replace("Fri","6");
+            dayNumber = dayNumber.replace("Sat","7");
+            return dayNumber;
+        }
     }
 
     public void goToSchedule(int position) {

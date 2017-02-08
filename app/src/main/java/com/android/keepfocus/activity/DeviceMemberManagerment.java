@@ -55,6 +55,8 @@ import com.android.keepfocus.utils.MainUtils;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by Sion on 11/8/2016.
@@ -640,9 +642,33 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         Log.e(TAG, "displayDetailTime ");
         mDataHelper.makeDetailOneMemberItemParent(MainUtils.memberItem);
         listProfileItem = MainUtils.memberItem.getListProfile();
+        if (listProfileItem.size()>0) {
+            Collections.sort(listProfileItem, Comparators.DAY);
+        }
         timeListAdapter = new ChildTimeListAdapter(this, R.layout.time_adapter, 0, listProfileItem);
         listTime.setAdapter(timeListAdapter);
     }
+
+    public static class Comparators {
+        public static Comparator<ParentProfileItem> DAY = new Comparator<ParentProfileItem>() {
+            @Override
+            public int compare(ParentProfileItem day1, ParentProfileItem day2) {
+                return coverDayNumber(day1.getDay_profile()).compareTo(coverDayNumber(day2.getDay_profile()));
+            }
+        };
+        private static String coverDayNumber (String day) {
+            String dayNumber = day;
+            dayNumber = dayNumber.replace("Sun","1");
+            dayNumber = dayNumber.replace("Mon","2");
+            dayNumber = dayNumber.replace("Tue","3");
+            dayNumber = dayNumber.replace("Wed","4");
+            dayNumber = dayNumber.replace("Thu","5");
+            dayNumber = dayNumber.replace("Fri","6");
+            dayNumber = dayNumber.replace("Sat","7");
+            return dayNumber;
+        }
+    }
+
 
     public void goToScheduler(int position) {
         MainUtils.parentProfile = timeListAdapter.getItem(position);
@@ -651,7 +677,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
 
     public void changeIcon(int position) {
         MainUtils.memberItem = adapterMember.getItem(position);
-        Toast.makeText(this, "Change avatar", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Change avatar", Toast.LENGTH_LONG).show();
         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         positionNow = position;
         startActivityForResult(i, PICK_IMAGE);

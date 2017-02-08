@@ -314,7 +314,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     String deviceName = jsonDevice.getString("device_name");
                     JSONObject jsonGroup = jsonMessage.getJSONObject("Group");
 
-                    sendNotificationConfirm(deviceName + " want to join your family as a manager.",
+                    sendNotificationConfirm(deviceName + " is asking to manage the family's devices",
                             "You have a manager request",
                             jsonDevice.toString(),
                             jsonGroup.toString());
@@ -323,7 +323,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     //update manager device when join group
                     Log.e(TAG, "ACCEPT_MANAGER_JOIN");
                     SetupWizardActivity.setTypeJoin(Constants.JoinSuccess, getApplicationContext());
-                    sendNotificationAccept("Tap here to manage your family.", "You've accepted to become a additional manager.");
+                    sendNotificationAccept("Tap here to manage the family's devices.", "Your request to join the Family has been accepted.");
                     Intent intentAccept = new Intent();
                     intentAccept.setAction(MainUtils.MANAGER_JOIN_SUCCESS);
                     getApplicationContext().sendBroadcast(intentAccept);

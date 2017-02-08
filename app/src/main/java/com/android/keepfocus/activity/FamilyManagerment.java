@@ -457,9 +457,9 @@ public class FamilyManagerment extends Activity{
                             }
                         } else {
                             //dialog.cancel();
-                            mEditText.setError("The Family name cannot empty");
-                            Toast.makeText(FamilyManagerment.this, "The Family name cannot empty", Toast.LENGTH_LONG).show();
-                            final Toast familyNameError = Toast.makeText(FamilyManagerment.this, "The Family name cannot contain space.", Toast.LENGTH_LONG);
+                            mEditText.setError("Please add a Family Name");
+                            Toast.makeText(FamilyManagerment.this, "Please add a Family Name", Toast.LENGTH_LONG).show();
+                            final Toast familyNameError = Toast.makeText(FamilyManagerment.this, "Please add a Family Name", Toast.LENGTH_LONG);
                             familyNameError.show();
                             MainUtils.extendDisplayTimeOfToast(familyNameError);
                             focusView = mEditText;

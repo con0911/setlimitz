@@ -132,8 +132,8 @@ public class SchedulerRequestController {
 
     public String restoreSchedulerForChild(ChildKeepFocusItem profileItem){
         ChildKeepFocusItem child = MainUtils.childKeepFocusItem;
-        int id_profile_server = JoinGroupActivity.getChildProfileIdServer(mContext);
-        Device deviceItem = new Device(id_profile_server, "","samsung","android","","","child");
+        int id_device_server = JoinGroupActivity.getChildProfileIdServer(mContext);
+        Device deviceItem = new Device(id_device_server, "","samsung","android","","","child");
         schedulerRequest = new SchedulerRequest(Constants.RequestTypeGet, deviceItem);
 
         Gson gson = new Gson();
@@ -197,7 +197,7 @@ public class SchedulerRequestController {
 
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mContext, "Error in server", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -256,6 +256,7 @@ public class SchedulerRequestController {
                             MainUtils.childKeepFocusItem.setNameFocus(scheduleItem.getString("scheduler_name"));
                             MainUtils.childKeepFocusItem.setDayFocus(scheduleItem.getString("days"));
                             MainUtils.childKeepFocusItem.setActive(scheduleItem.getString("isActive").equals("1"));
+                            MainUtils.childKeepFocusItem.setId_profile_server(scheduleItem.getInt("id"));
                             mDataHelper.addNewFocusItem(MainUtils.childKeepFocusItem);
                             Log.e(TAG, "MainUtils.childKeepFocusItem.getKeepFocusId() : " + MainUtils.childKeepFocusItem.getKeepFocusId());
                             JSONArray timeItems = scheduleItem.getJSONArray("timeitems");
@@ -276,7 +277,7 @@ public class SchedulerRequestController {
                         }
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -479,7 +480,7 @@ public class SchedulerRequestController {
                         MainUtils.memberItemForBlockAll.setIs_blockall(1);
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -534,7 +535,7 @@ public class SchedulerRequestController {
                         MainUtils.memberItemForBlockAll.setIs_blockall(0);
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -589,7 +590,7 @@ public class SchedulerRequestController {
                         MainUtils.memberItemForBlockAll.setIs_alowall(1);
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -644,7 +645,7 @@ public class SchedulerRequestController {
                         MainUtils.memberItemForBlockAll.setIs_alowall(0);
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -700,7 +701,7 @@ public class SchedulerRequestController {
                         Toast.makeText(mContext, "Block settings successful", Toast.LENGTH_LONG).show();
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -756,7 +757,7 @@ public class SchedulerRequestController {
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                         Toast.makeText(mContext, "Unblock settings successful", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
