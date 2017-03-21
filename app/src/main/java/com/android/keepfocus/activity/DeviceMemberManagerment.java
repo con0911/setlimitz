@@ -954,7 +954,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         if (SetupWizardActivity.getModeDevice(mContext) == Constants.Admin) {
             deleteDevice(position);
         } else {
-            Toast.makeText(mContext, "You do not have permission to delete this device.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "Only the primary parent can delete devices.", Toast.LENGTH_LONG).show();
         }
     }
 

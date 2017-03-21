@@ -443,7 +443,7 @@ public class FamilyManagerment extends Activity{
                             //mDataHelper.addGroupItemParent(parentItem);
                             if (isNameInValid(name)){
                                 mEditText.setError("The Family name cannot contain space.");
-                                final Toast familyNameError = Toast.makeText(FamilyManagerment.this, "The Family name cannot contain space.", Toast.LENGTH_LONG);
+                                final Toast familyNameError = Toast.makeText(FamilyManagerment.this, "Add new family but name is have blank space.", Toast.LENGTH_LONG);
                                 familyNameError.show();
                                 MainUtils.extendDisplayTimeOfToast(familyNameError);
                                 focusView = mEditText;
@@ -457,9 +457,9 @@ public class FamilyManagerment extends Activity{
                             }
                         } else {
                             //dialog.cancel();
-                            mEditText.setError("Please add a Family Name");
-                            Toast.makeText(FamilyManagerment.this, "Please add a Family Name", Toast.LENGTH_LONG).show();
-                            final Toast familyNameError = Toast.makeText(FamilyManagerment.this, "Please add a Family Name", Toast.LENGTH_LONG);
+                            mEditText.setError("Add new family but name is empty.");
+                            Toast.makeText(FamilyManagerment.this, "Add new family but name is empty.", Toast.LENGTH_LONG).show();
+                            final Toast familyNameError = Toast.makeText(FamilyManagerment.this, "Add new family but name is empty.", Toast.LENGTH_LONG);
                             familyNameError.show();
                             MainUtils.extendDisplayTimeOfToast(familyNameError);
                             focusView = mEditText;
@@ -520,7 +520,7 @@ public class FamilyManagerment extends Activity{
         if(SetupWizardActivity.getModeDevice(mContext) == Constants.Admin) {
             deleteProfile(position);
         } else {
-            Toast.makeText(mContext, "You do not have permission to delete this family.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "Only the primary parent can delete a family group.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -594,7 +594,7 @@ public class FamilyManagerment extends Activity{
             }
             return super.onOptionsItemSelected(item);
         } else {
-            Toast.makeText(mContext, "You do not have permission to edit this family.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "Only the primary parent can edit a family group.", Toast.LENGTH_LONG).show();
         }
         return false;
     }
@@ -608,7 +608,7 @@ public class FamilyManagerment extends Activity{
 
     public void renameGroup() {
         if (SetupWizardActivity.getModeDevice(mContext) == Constants.Manager) {
-            Toast.makeText(mContext, "You don't have this permission.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "Only the primary parent can edit a family group.", Toast.LENGTH_LONG).show();
             return;
         }
         mView = getLayoutInflater().inflate(R.layout.edit_name_popup_layout, null);

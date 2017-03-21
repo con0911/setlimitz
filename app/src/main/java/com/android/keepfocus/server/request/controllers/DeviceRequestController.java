@@ -28,7 +28,7 @@ import java.net.URL;
 
 public class DeviceRequestController {
     //public static final String DEVICE_BASE_URL = "http://45.63.21.174/api/device?pRequest=";
-    public static final String DEVICE_BASE_URL = "http://45.63.21.174/api/device?pRequest=";
+    public static final String DEVICE_BASE_URL = "http://173.199.126.96/api/device?pRequest=";
     private DeviceRequest deviceRequest;
     private static final int NET_READ_TIMEOUT_MILLIS = 20000;
     private static final int NET_CONNECT_TIMEOUT_MILLIS = 20000;
@@ -113,14 +113,14 @@ public class DeviceRequestController {
                         mDataHelper.deleteMemberItemById(MainUtils.memberItem.getId_member());
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Error in server " + description_result, Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Server error." + description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't delete device! Error in database", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Device deletion could not be completed at this time. Please try again.", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
             }
             if ((mDialog != null) && mDialog.isShowing()) {
                 //mDialog.dismiss(); //fc issue
@@ -195,10 +195,10 @@ public class DeviceRequestController {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(mContext, "Error parsing JSON data.", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mContext, "Error parsing JSON data.", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(mContext, "Couldn't get any JSON data.", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(mContext, "Couldn't get any JSON data.", Toast.LENGTH_LONG).show();
                 }
             }
         };

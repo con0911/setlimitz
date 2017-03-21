@@ -55,9 +55,6 @@
 
 
 
-        <activity android:name=".activity.ParentSchedulerActivity"
-            android:theme="@style/CustomizeActionbarAppTheme"/>
-
         <activity android:name=".activity.ChildSchedulerActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:theme="@style/CustomizeActionbarAppTheme"/>

@@ -366,7 +366,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
                     Intent intent = new Intent(mContext, GcmIntentService.class);//send intent to get token
                     intent.putExtra("key", "register");
                     startService(intent);
-                    Toast.makeText(JoinGroupActivity.this, "Please check the internet connection!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(JoinGroupActivity.this, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
                 } else if (SetupWizardActivity.getModeDevice(mContext) == Constants.Children
                         && !(joinFamilyIDText.getText().toString().isEmpty() || nameDevice.getText().toString().isEmpty()
                             || mActiveCode.getSelectedItem() == null)) {
@@ -725,7 +725,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
             case R.id.familyId :
                 if(!hasFocus) {
                     if(joinFamilyIDText.getText().toString().replaceAll(" ","") == ""){
-                        Toast.makeText(JoinGroupActivity.this, "Family ID can not is blank", Toast.LENGTH_LONG).show();
+                        Toast.makeText(JoinGroupActivity.this, "Please enter your Family ", Toast.LENGTH_LONG).show();
                         return;
                     }
                     loadLicense();
@@ -793,11 +793,11 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
 
                     } else if (status_result.equals("2")) {
                         if(SetupWizardActivity.getModeDevice(mContext) == Constants.Children) {
-                            final Toast wrongActiveCode = Toast.makeText(mContext, "The activation code is incorrect, please check Activation code and try again.", Toast.LENGTH_LONG);
+                            final Toast wrongActiveCode = Toast.makeText(mContext, "The activation code is incorrect, please try again.", Toast.LENGTH_LONG);
                             wrongActiveCode.show();
                             MainUtils.extendDisplayTimeOfToast(wrongActiveCode);
                         }else if(SetupWizardActivity.getModeDevice(mContext) == Constants.Manager){
-                            final Toast toastWrongFamilyID = Toast.makeText(mContext, "The Family ID entered is incorrect, please check the ID and try again.", Toast.LENGTH_LONG);
+                            final Toast toastWrongFamilyID = Toast.makeText(mContext, "The Family ID entered is incorrect, please try again.", Toast.LENGTH_LONG);
                             toastWrongFamilyID.show();
                             MainUtils.extendDisplayTimeOfToast(toastWrongFamilyID);
                         }
@@ -889,7 +889,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
                     //mDataHelper.updateFocusItem(MainUtils.childKeepFocusItem);
                     setChildProfileServerId(id_profile_server, mContext);
                     if (status_result.equals("1")) {
-                        Toast.makeText(mContext, "Replace device successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Device replace successfully!", Toast.LENGTH_LONG).show();
                         groupRequestController.updateSuccess();
                         SetupWizardActivity.setTypeJoin(Constants.JoinSuccess, mContext);
                         SetupWizardActivity.setNameDevice(nameDevice.getText().toString(), mContext);
@@ -898,7 +898,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
                         childSchedule.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(childSchedule);
                     } else {
-                        Toast.makeText(mContext, "Replace device failure", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Device replacement failed! Please check activation code.", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

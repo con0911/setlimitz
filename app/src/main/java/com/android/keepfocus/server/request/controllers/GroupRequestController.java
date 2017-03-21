@@ -43,8 +43,8 @@ import java.util.ArrayList;
 public class GroupRequestController {
    // public static final String BASE_URL = "http://45.63.21.174/api/group?pRequest=";
    // public static final String LICENSE_URL = "http://45.63.21.174/api/group?pRequest=";
-    public static final String BASE_URL = "http://45.63.21.174/api/group?pRequest=";
-    public static final String LICENSE_URL = "http://45.63.21.174/api/group?pRequest=";
+    public static final String BASE_URL = "http://173.199.126.96/api/group?pRequest=";
+    public static final String LICENSE_URL = "http://173.199.126.96/api/group?pRequest=";
 
     private static final int NET_READ_TIMEOUT_MILLIS = 20000;
     private static final int NET_CONNECT_TIMEOUT_MILLIS = 20000;
@@ -259,14 +259,14 @@ public class GroupRequestController {
                         mDataHelper.addGroupItemParent(MainUtils.parentGroupItem);
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Server error.", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't create new family! Error in database", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Family group could not be created at this time. Please try again", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -480,16 +480,16 @@ public class GroupRequestController {
                         updateSuccess();
                     } else {
                         MainUtils.mIsEditNameGroup = false;
-                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Server error.", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     MainUtils.mIsEditNameGroup = false;
-                    Toast.makeText(mContext, "Can't update family! Error in database", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Family group could not be updated at this time. Please try again.", Toast.LENGTH_LONG).show();
                 }
             } else {
                 MainUtils.mIsEditNameGroup = false;
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -535,14 +535,14 @@ public class GroupRequestController {
                         mDataHelper.deleteGroupItemById(MainUtils.parentGroupItem.getId_group());
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Error in server " + description_result, Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Server error." + description_result, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't delete family! Error in database", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Family group could not be deleted at this time. Please try again.", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -607,10 +607,10 @@ public class GroupRequestController {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Error in database", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(mContext, "Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check internet!", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -727,15 +727,15 @@ public class GroupRequestController {
                     listLicense = null;
                     e.printStackTrace();
                     if (typeRequest == Constants.ActionTypeGetLicenseUsed) {
-                        Toast.makeText(mContext, "Please select New! No used licenses in your account", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "New license required, no used licenses available on your account. Please purchase another license.", Toast.LENGTH_LONG).show();
                     }else {
-                        Toast.makeText(mContext, "No available licenses in your account", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "No available licenses, please purchase another license or select replacing license.", Toast.LENGTH_LONG).show();
                     }
                 }
                 JoinGroupActivity joinGroupActivity = (JoinGroupActivity) mContext;//show license
                 joinGroupActivity.setLicenseList(listLicense);
             } else {
-                Toast.makeText(mContext, "Please check internet!", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();

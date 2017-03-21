@@ -28,7 +28,7 @@ import java.net.URL;
 
 public class LoginRequestController {
     //public static final String ACCOUNT_BASE_URL = "http://45.63.21.174/api/account?pRequest=";
-    public static final String ACCOUNT_BASE_URL = "http://45.63.21.174/api/account?pRequest=";
+    public static final String ACCOUNT_BASE_URL = "http://173.199.126.96/api/account?pRequest=";
     private static final int NET_READ_TIMEOUT_MILLIS = 20000;
     private static final int NET_CONNECT_TIMEOUT_MILLIS = 20000;
 
@@ -96,16 +96,16 @@ public class LoginRequestController {
                         mContext.startActivity(groupManagement);
                     } else {
                         isSuccess = false;
-                        Toast.makeText(mContext, "Your password or email is wrong", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Incorrect email or password.", Toast.LENGTH_LONG).show();
                         Intent login = new Intent(mContext, LoginActivity.class);
                         mContext.startActivity(login);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Can't create new family! Error in database", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(mContext, "Can't create new family! Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "Please check the internet connection!", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
                 LoginActivity loginActivity = (LoginActivity) mContext;
                 loginActivity.finish();
                 Intent login = new Intent(mContext, LoginActivity.class);
