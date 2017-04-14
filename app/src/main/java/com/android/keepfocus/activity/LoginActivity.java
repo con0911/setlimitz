@@ -48,6 +48,8 @@ import com.android.keepfocus.server.request.model.LoginRequest;
 import com.android.keepfocus.utils.MainUtils;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -345,7 +347,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>,O
             showProgress(true);
             gcmIntentService = new GcmIntentService();
             email = mEmailView.getText().toString();
-            password = mPasswordView.getText().toString();
+            try {
+                password = URLEncoder.encode(mPasswordView.getText().toString(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                password = "null";
+            }
 
             String registrationId = MainUtils.getRegistationId;
             String deviceCode = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
