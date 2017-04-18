@@ -314,7 +314,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>,O
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         emailLogin = email;
-        passwordLogin = password;
+        try {
+            passwordLogin = URLEncoder.encode(password, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            passwordLogin = "null";
+        }
 
         boolean cancel = false;
         View focusView = null;
@@ -347,15 +351,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>,O
             showProgress(true);
             gcmIntentService = new GcmIntentService();
             email = mEmailView.getText().toString();
-            try {
-                password = URLEncoder.encode(mPasswordView.getText().toString(), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                password = "null";
-            }
 
             String registrationId = MainUtils.getRegistationId;
             String deviceCode = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
-            Header headerItem = new Header(email, deviceCode, registrationId, password);
+            Header headerItem = new Header(email, deviceCode, registrationId, passwordLogin);
             LoginRequest loginRequest = new LoginRequest(headerItem);
             Gson gson = new Gson();
             String headerJsonObject = gson.toJson(loginRequest);
