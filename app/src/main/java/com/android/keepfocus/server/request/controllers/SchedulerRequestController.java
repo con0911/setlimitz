@@ -40,7 +40,7 @@ import java.util.ArrayList;
 
 public class SchedulerRequestController {
     //public static final String BASE_URL = "http://45.63.21.174/api/scheduler?pRequest=";
-    public static final String BASE_URL = "http://173.199.126.96/api/scheduler?pRequest=";
+    public static final String BASE_URL = "http://173.199.126.96:8012/api/scheduler?pRequest=";
     private static final int NET_READ_TIMEOUT_MILLIS = 20000;
     private static final int NET_CONNECT_TIMEOUT_MILLIS = 20000;
     private SchedulerRequest schedulerRequest;
