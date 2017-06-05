@@ -30,7 +30,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon_setlimitz"
+        android:icon="@drawable/icon_setlimitz2"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:largeHeap="true"
