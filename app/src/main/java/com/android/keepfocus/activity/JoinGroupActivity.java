@@ -366,13 +366,13 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
                     Intent intent = new Intent(mContext, GcmIntentService.class);//send intent to get token
                     intent.putExtra("key", "register");
                     startService(intent);
-                    Toast.makeText(JoinGroupActivity.this, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(JoinGroupActivity.this, getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
                 } else if (SetupWizardActivity.getModeDevice(mContext) == Constants.Children
                         && !(joinFamilyIDText.getText().toString().isEmpty() || nameDevice.getText().toString().isEmpty()
                             || mActiveCode.getSelectedItem() == null)) {
                     if (isNameInValid(joinFamilyIDText.getText().toString()) || isNameInValid(nameDevice.getText().toString())
                             || isNameInValid(mActiveCode.getSelectedItem().toString())){
-                        final Toast errorName = Toast.makeText(mContext, "The name, FamilyID or Activation code cannot contain space", Toast.LENGTH_LONG);
+                        final Toast errorName = Toast.makeText(mContext, getString(R.string.text_error_child_warning), Toast.LENGTH_LONG);
                         errorName.show();
                         MainUtils.extendDisplayTimeOfToast(errorName);
                     }else {
@@ -383,7 +383,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
                 } else if (SetupWizardActivity.getModeDevice(mContext) == Constants.Manager
                         && !(joinFamilyIDText.getText().toString().isEmpty() || nameDevice.getText().toString().isEmpty())) {
                     if (isNameInValid(joinFamilyIDText.getText().toString()) || isNameInValid(nameDevice.getText().toString())){
-                        final Toast errorInput = Toast.makeText(mContext, "The name or FamilyID cannot contain space", Toast.LENGTH_LONG);
+                        final Toast errorInput = Toast.makeText(mContext, getString(R.string.text_error_manage_warning), Toast.LENGTH_LONG);
                         errorInput.show();
                         MainUtils.extendDisplayTimeOfToast(errorInput);
                     }
@@ -725,7 +725,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
             case R.id.familyId :
                 if(!hasFocus) {
                     if(joinFamilyIDText.getText().toString().replaceAll(" ","") == ""){
-                        Toast.makeText(JoinGroupActivity.this, "Please enter your Family ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(JoinGroupActivity.this, getString(R.string.enter_family), Toast.LENGTH_LONG).show();
                         return;
                     }
                     loadLicense();
@@ -793,11 +793,11 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
 
                     } else if (status_result.equals("2")) {
                         if(SetupWizardActivity.getModeDevice(mContext) == Constants.Children) {
-                            final Toast wrongActiveCode = Toast.makeText(mContext, "The activation code is incorrect, please try again.", Toast.LENGTH_LONG);
+                            final Toast wrongActiveCode = Toast.makeText(mContext, getString(R.string.active_code_error), Toast.LENGTH_LONG);
                             wrongActiveCode.show();
                             MainUtils.extendDisplayTimeOfToast(wrongActiveCode);
                         }else if(SetupWizardActivity.getModeDevice(mContext) == Constants.Manager){
-                            final Toast toastWrongFamilyID = Toast.makeText(mContext, "The Family ID entered is incorrect, please try again.", Toast.LENGTH_LONG);
+                            final Toast toastWrongFamilyID = Toast.makeText(mContext, getString(R.string.family_id_incorrect), Toast.LENGTH_LONG);
                             toastWrongFamilyID.show();
                             MainUtils.extendDisplayTimeOfToast(toastWrongFamilyID);
                         }
@@ -825,9 +825,9 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
             if (SetupWizardActivity.getModeDevice(mContext) == Constants.Children) {
-                mDialog.setMessage("Please wait while a connection is made with parent device...");
+                mDialog.setMessage(getString(R.string.connect_to_parent));
             }else {
-                mDialog.setMessage("Request to server...");
+                mDialog.setMessage(getString(R.string.server_requesting));
             }
             mDialog.show();
         }
@@ -889,7 +889,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
                     //mDataHelper.updateFocusItem(MainUtils.childKeepFocusItem);
                     setChildProfileServerId(id_profile_server, mContext);
                     if (status_result.equals("1")) {
-                        Toast.makeText(mContext, "Device replace successfully!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getString(R.string.replace_device_sucess), Toast.LENGTH_LONG).show();
                         groupRequestController.updateSuccess();
                         SetupWizardActivity.setTypeJoin(Constants.JoinSuccess, mContext);
                         SetupWizardActivity.setNameDevice(nameDevice.getText().toString(), mContext);
@@ -898,7 +898,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
                         childSchedule.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(childSchedule);
                     } else {
-                        Toast.makeText(mContext, "Device replacement failed! Please check activation code.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getString(R.string.replace_device_fail), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -915,7 +915,7 @@ public class JoinGroupActivity extends Activity implements CompoundButton.OnChec
             mDialog = new ProgressDialog(JoinGroupActivity.this);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(getString(R.string.server_requesting));
             mDialog.show();
         }
     }

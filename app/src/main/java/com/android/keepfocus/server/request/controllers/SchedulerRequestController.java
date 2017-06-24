@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.keepfocus.R;
 import com.android.keepfocus.activity.ChildSchedulerActivity;
 import com.android.keepfocus.activity.JoinGroupActivity;
 import com.android.keepfocus.data.ChildKeepFocusItem;
@@ -201,10 +202,10 @@ public class SchedulerRequestController {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Schedule could not be created at this time. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.error_scheduler), Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             mDialog.dismiss();
         }
@@ -214,7 +215,7 @@ public class SchedulerRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }
@@ -284,7 +285,7 @@ public class SchedulerRequestController {
                     //Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -296,7 +297,7 @@ public class SchedulerRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }
@@ -484,10 +485,10 @@ public class SchedulerRequestController {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -499,7 +500,7 @@ public class SchedulerRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }
@@ -542,7 +543,7 @@ public class SchedulerRequestController {
                     //Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -554,7 +555,7 @@ public class SchedulerRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }
@@ -597,7 +598,7 @@ public class SchedulerRequestController {
                     //Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -609,7 +610,7 @@ public class SchedulerRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }
@@ -652,7 +653,7 @@ public class SchedulerRequestController {
                     //Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -664,7 +665,7 @@ public class SchedulerRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }
@@ -698,7 +699,7 @@ public class SchedulerRequestController {
                         //Handle Success
                         updateSuccess(MainUtils.BLOCK_SETTINGS);
                         MainUtils.memberItemForBlockAll.setIs_blocksettings(1);
-                        Toast.makeText(mContext, "Access to Settings has been blocked successfully.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, mContext.getString(R.string.setting_block), Toast.LENGTH_LONG).show();
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
                     } else {
                         //Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
@@ -708,7 +709,7 @@ public class SchedulerRequestController {
                     //Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -720,7 +721,7 @@ public class SchedulerRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }
@@ -755,7 +756,7 @@ public class SchedulerRequestController {
                         updateSuccess(MainUtils.UN_BLOCK_SETTINGS);
                         MainUtils.memberItemForBlockAll.setIs_blocksettings(0);
                         mDataHelper.updateMemberItem(MainUtils.memberItemForBlockAll);
-                        Toast.makeText(mContext, "Access to Settings has been returned successfully.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext,  mContext.getString(R.string.setting_access), Toast.LENGTH_LONG).show();
                     } else {
                         //Toast.makeText(mContext, "Error in server "+ description_result, Toast.LENGTH_LONG).show();
                     }
@@ -764,7 +765,7 @@ public class SchedulerRequestController {
                     //Toast.makeText(mContext, "Please check the internet connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext,  mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -776,7 +777,7 @@ public class SchedulerRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }

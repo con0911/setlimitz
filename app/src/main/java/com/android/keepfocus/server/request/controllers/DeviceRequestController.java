@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.keepfocus.R;
 import com.android.keepfocus.data.MainDatabaseHelper;
 import com.android.keepfocus.data.ParentGroupItem;
 import com.android.keepfocus.server.model.Device;
@@ -113,14 +114,14 @@ public class DeviceRequestController {
                         mDataHelper.deleteMemberItemById(MainUtils.memberItem.getId_member());
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Server error." + description_result, Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, String.format(mContext.getString(R.string.error_server), description_result), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Device deletion could not be completed at this time. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.error_device), Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if ((mDialog != null) && mDialog.isShowing()) {
                 //mDialog.dismiss(); //fc issue
@@ -133,7 +134,7 @@ public class DeviceRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             //mDialog.show();
         }
     }
@@ -187,10 +188,10 @@ public class DeviceRequestController {
                         Log.d(TAG, "description_result" + description_result);
                         if (description_result.equals("1")) {
                             isSuccess = true;
-                            Toast.makeText(mContext, "Success", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, mContext.getString(R.string.success), Toast.LENGTH_LONG).show();
                         } else {
                             isSuccess = false;
-                            Toast.makeText(mContext, "Error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, mContext.getString(R.string.error), Toast.LENGTH_LONG).show();
                         }
 
                     } catch (JSONException e) {

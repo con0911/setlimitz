@@ -287,7 +287,7 @@ public class ChildSchedulerDetail extends Activity implements
         builder.setView(view)
                 .setCancelable(false)
                 // Add action buttons
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // Get time by TimerPicker
@@ -307,7 +307,7 @@ public class ChildSchedulerDetail extends Activity implements
                         updateTimerList();
                     }
                 })
-                .setNegativeButton("CANCEL",
+                .setNegativeButton(R.string.cancel_button,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 //

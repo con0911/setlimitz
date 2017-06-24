@@ -118,7 +118,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
             final String action = intent.getAction();
             if (MainUtils.UPDATE_FAMILY_GROUP.equals(action)) {
                 displayMember();
-                setTitle(MainUtils.parentGroupItem.getGroup_name() + "'s Family");
+                setTitle(String.format(getString(R.string.family_title), MainUtils.parentGroupItem.getGroup_name()));
             } else if (MainUtils.UPDATE_CHILD_DEVICE.equals(action)) {
                 displayMember();
                 //setTitle(MainUtils.parentGroupItem.getGroup_name());
@@ -165,9 +165,9 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         listProperties.setVisibility(View.GONE);
         //Fix issue FC sometime
         if (MainUtils.parentGroupItem != null) {
-            setTitle(MainUtils.parentGroupItem.getGroup_name() + "'s Family");
+            setTitle(String.format(getString(R.string.family_title), MainUtils.parentGroupItem.getGroup_name()));
         } else {
-            setTitle(R.string.unknow_family +" Family");
+            setTitle(String.format(getString(R.string.family_title), getString(R.string.unknow_family)));
         }
         mDataHelper = new MainDatabaseHelper(mContext);
 
@@ -350,8 +350,8 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         loadDayButton();
 
         mAlertDialog = new AlertDialog.Builder(this).setView(mView).setCancelable(false)
-                .setTitle("Create new schedule")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setTitle(getString(R.string.popup_create_schedule))
+                .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         formatStringDayBlock(dayBlock);
@@ -361,7 +361,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
                         schedulerRequestController.addNewScheduler();
                         //keepData.updateProfileItem(MainUtils.parentProfile); // update
                     }
-                }).setNegativeButton("CANCEL", new DatePickerDialog.OnClickListener() {
+                }).setNegativeButton(R.string.cancel_button, new DatePickerDialog.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -378,8 +378,8 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         updateTimerList();
 
         mAlertDialog = new AlertDialog.Builder(this).setView(mView).setCancelable(false)
-                .setTitle("Edit this schedule")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setTitle(getString(R.string.popup_edit_schedule))
+                .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         formatStringDayBlock(dayBlock);
@@ -389,7 +389,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
                         displayDetailTime();
                         schedulerRequestController.updateScheduler();
                     }
-                }).setNegativeButton("CANCEL", new DatePickerDialog.OnClickListener() {
+                }).setNegativeButton(R.string.cancel_button, new DatePickerDialog.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -782,15 +782,15 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         final String strDayWeek = MainUtils.DAY_OF_WEEK[day];
         if (MainUtils.memberItem.checkIsContainDay(day)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are you sure you want to continue?");
-            builder.setTitle("You have already included this day in another schedule");
-            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            builder.setMessage(getString(R.string.confirm_dialog_message));
+            builder.setTitle(getString(R.string.scheduler_day_dialog_message));
+            builder.setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     dayBlock = dayBlock + strDayWeek;
                     loadDayButton();
                 }
             });
-            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     if (mAlertDialog != null && mAlertDialog.isShowing()){
                         mAlertDialog.dismiss();
@@ -918,7 +918,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         builder.setView(view)
                 .setCancelable(false)
                 // Add action buttons
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // Get time by TimerPicker
@@ -942,7 +942,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
                         updateStatusTime(MainUtils.parentProfile.getListTimer());
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
@@ -954,7 +954,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         if (SetupWizardActivity.getModeDevice(mContext) == Constants.Admin) {
             deleteDevice(position);
         } else {
-            Toast.makeText(mContext, "Only the primary parent can delete devices.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, getString(R.string.delete_device_permission_warning), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -962,9 +962,9 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
         final int mPosition = position;
         View view = getLayoutInflater().inflate(R.layout.delete_profile_popup, null);
         TextView mTextMsg = (TextView) view.findViewById(R.id.delete_text);
-        mTextMsg.setText("Are you sure to remove this device from family?");
-        AlertDialog mDeleteDialog = new AlertDialog.Builder(this).setView(view).setTitle("Remove device")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        mTextMsg.setText(getString(R.string.remove_device_message));
+        AlertDialog mDeleteDialog = new AlertDialog.Builder(this).setView(view).setTitle(getString(R.string.remove_device_title))
+                .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                         MainUtils.memberItem = listBlockPropertiesArr.get(position);
@@ -974,7 +974,7 @@ public class DeviceMemberManagerment extends Activity implements View.OnClickLis
                         //Intent deviceManagement = new Intent(mContext, DeviceMemberManagerment.class);
                         //startActivity(deviceManagement);
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.cancel();

@@ -69,7 +69,8 @@ public class BlockLauncher extends Activity {
                 e.printStackTrace();
             }
             if (nameApp != null) {
-                appName.setText(nameApp + " " +getString(R.string.block_app_description));
+                String blockDescription = String.format(getString(R.string.block_app_description), nameApp);
+                appName.setText(blockDescription);
             }
         }
     }

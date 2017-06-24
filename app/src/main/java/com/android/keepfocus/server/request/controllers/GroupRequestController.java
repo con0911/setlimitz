@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.keepfocus.R;
 import com.android.keepfocus.activity.JoinGroupActivity;
 import com.android.keepfocus.activity.LoginActivity;
 import com.android.keepfocus.data.MainDatabaseHelper;
@@ -259,14 +260,14 @@ public class GroupRequestController {
                         mDataHelper.addGroupItemParent(MainUtils.parentGroupItem);
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Server error.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, mContext.getString(R.string.error_server_toast), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Family group could not be created at this time. Please try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.family_create_error), Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -279,7 +280,7 @@ public class GroupRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }
@@ -480,16 +481,16 @@ public class GroupRequestController {
                         updateSuccess();
                     } else {
                         MainUtils.mIsEditNameGroup = false;
-                        Toast.makeText(mContext, "Server error.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, mContext.getString(R.string.error_server_toast), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     MainUtils.mIsEditNameGroup = false;
-                    Toast.makeText(mContext, "Family group could not be updated at this time. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.family_edit_error), Toast.LENGTH_LONG).show();
                 }
             } else {
                 MainUtils.mIsEditNameGroup = false;
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -500,7 +501,7 @@ public class GroupRequestController {
         protected void onPreExecute() {
             super.onPreExecute();
             mDialog = new ProgressDialog(mContext);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
             mDialog.show();
@@ -535,14 +536,14 @@ public class GroupRequestController {
                         mDataHelper.deleteGroupItemById(MainUtils.parentGroupItem.getId_group());
                         updateSuccess();
                     } else {
-                        Toast.makeText(mContext, "Server error." + description_result, Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, mContext.getString(R.string.error_server_toast), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Family group could not be deleted at this time. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.family_delete_error), Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -555,7 +556,7 @@ public class GroupRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }
@@ -610,7 +611,7 @@ public class GroupRequestController {
                     //Toast.makeText(mContext, "Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -720,22 +721,22 @@ public class GroupRequestController {
                             }
                         }
                     } else {
-                        Toast.makeText(mContext, "Error in server", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, mContext.getString(R.string.error_server_toast), Toast.LENGTH_LONG).show();
                         listLicense = null;
                     }
                 } catch (JSONException e) {
                     listLicense = null;
                     e.printStackTrace();
                     if (typeRequest == Constants.ActionTypeGetLicenseUsed) {
-                        Toast.makeText(mContext, "New license required, no used licenses available on your account. Please purchase another license.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, mContext.getString(R.string.error_license_used), Toast.LENGTH_LONG).show();
                     }else {
-                        Toast.makeText(mContext, "No available licenses, please purchase another license or select replacing license.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, mContext.getString(R.string.no_available_license), Toast.LENGTH_LONG).show();
                     }
                 }
                 JoinGroupActivity joinGroupActivity = (JoinGroupActivity) mContext;//show license
                 joinGroupActivity.setLicenseList(listLicense);
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -748,7 +749,7 @@ public class GroupRequestController {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCancelable(false);
             mDialog.setInverseBackgroundForced(false);
-            mDialog.setMessage("Request to server...");
+            mDialog.setMessage(mContext.getString(R.string.server_requesting));
             mDialog.show();
         }
     }

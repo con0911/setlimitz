@@ -117,7 +117,7 @@ public class ChildSchedulerActivity extends Activity {
 
     @Override
     public void setTitle(CharSequence title) {
-        super.setTitle(title +"'s schedule");
+        super.setTitle(String.format(getString(R.string.scheduler_title), title));
     }
 
     @Override
@@ -174,7 +174,7 @@ public class ChildSchedulerActivity extends Activity {
                 0, listBlockPropertiesArr);
         listProperties.setAdapter(mProfileAdapter);
         if (listBlockPropertiesArr.size() == 0) {
-            mTextNoGroup.setText("No schedule available");
+            mTextNoGroup.setText(getString(R.string.no_schedule));
         } else {
             mTextNoGroup.setText("");
         }

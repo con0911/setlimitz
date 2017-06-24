@@ -100,7 +100,8 @@ public class FamilyManagerment extends Activity{
             if (MainUtils.UPDATE_FAMILY_GROUP.equals(action)) {
                 if (MainUtils.mIsEditNameGroup) {
                     MainUtils.mIsEditNameGroup = false;
-                    nameFamily.setText(MainUtils.parentGroupItem.getGroup_name() + " Family");
+                    nameFamily.setText(String.format(getString(R.string.family_title), MainUtils.parentGroupItem.getGroup_name()));
+
                 } else {
                     invalidateOptionsMenu();
                     displayProfile();
@@ -184,7 +185,7 @@ public class FamilyManagerment extends Activity{
         if (MainUtils.parentGroupItem == null) {
             return;
         }
-        nameFamily.setText(MainUtils.parentGroupItem.getGroup_name() + " Family");
+        nameFamily.setText(String.format(getString(R.string.family_title), MainUtils.parentGroupItem.getGroup_name()));
         ArrayList<ParentMemberItem> listDevice = MainUtils.parentGroupItem.getListMember();
         if (listDevice.size() > 0) {
             String listDeviceText = " ";
@@ -428,8 +429,8 @@ public class FamilyManagerment extends Activity{
         mEditText = (EditText) mView.findViewById(R.id.edit_name_edittext_popup);
         mTextMsg = (TextView) mView.findViewById(R.id.edit_name_text);
 
-        mAlertDialog = new AlertDialog.Builder(this).setView(mView).setTitle("Add new family").setCancelable(false)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        mAlertDialog = new AlertDialog.Builder(this).setView(mView).setTitle(getString(R.string.add_family_title)).setCancelable(false)
+                .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -442,8 +443,8 @@ public class FamilyManagerment extends Activity{
                             //parentItem.setGroup_name(mEditText.getText().toString());
                             //mDataHelper.addGroupItemParent(parentItem);
                             if (isNameInValid(name)){
-                                mEditText.setError("The Family name cannot contain space.");
-                                final Toast familyNameError = Toast.makeText(FamilyManagerment.this, "Add new family but name is have blank space.", Toast.LENGTH_LONG);
+                                mEditText.setError(getString(R.string.add_family_blank_error));
+                                final Toast familyNameError = Toast.makeText(FamilyManagerment.this, getString(R.string.add_family_blank_error_message), Toast.LENGTH_LONG);
                                 familyNameError.show();
                                 MainUtils.extendDisplayTimeOfToast(familyNameError);
                                 focusView = mEditText;
@@ -457,16 +458,16 @@ public class FamilyManagerment extends Activity{
                             }
                         } else {
                             //dialog.cancel();
-                            mEditText.setError("Add new family but name is empty.");
-                            Toast.makeText(FamilyManagerment.this, "Add new family but name is empty.", Toast.LENGTH_LONG).show();
-                            final Toast familyNameError = Toast.makeText(FamilyManagerment.this, "Add new family but name is empty.", Toast.LENGTH_LONG);
+                            mEditText.setError(getString(R.string.add_family_name_empty_error));
+                            Toast.makeText(FamilyManagerment.this, getString(R.string.add_family_name_empty_error), Toast.LENGTH_LONG).show();
+                            final Toast familyNameError = Toast.makeText(FamilyManagerment.this, getString(R.string.add_family_name_empty_error), Toast.LENGTH_LONG);
                             familyNameError.show();
                             MainUtils.extendDisplayTimeOfToast(familyNameError);
                             focusView = mEditText;
                             focusView.requestFocus();
                         }
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.cancel();
@@ -520,7 +521,7 @@ public class FamilyManagerment extends Activity{
         if(SetupWizardActivity.getModeDevice(mContext) == Constants.Admin) {
             deleteProfile(position);
         } else {
-            Toast.makeText(mContext, "Only the primary parent can delete a family group.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, getString(R.string.delete_family_permission_warning), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -530,9 +531,9 @@ public class FamilyManagerment extends Activity{
         final int mPosition = position;
         View view = getLayoutInflater().inflate(R.layout.delete_profile_popup, null);
         TextView mTextMsg = (TextView) view.findViewById(R.id.delete_text);
-        mTextMsg.setText("Are you sure to remove this family?");
-        AlertDialog mDeleteDialog = new AlertDialog.Builder(this).setView(view).setTitle("Remove family")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        mTextMsg.setText(getString(R.string.remove_family_message));
+        AlertDialog mDeleteDialog = new AlertDialog.Builder(this).setView(view).setTitle(getString(R.string.remove_family_title))
+                .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                         MainUtils.parentGroupItem =listFamily.get(position);
@@ -540,7 +541,7 @@ public class FamilyManagerment extends Activity{
                         //displayProfile();
                         groupRequestController.deleteGroupInServer();
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.cancel();
@@ -594,7 +595,7 @@ public class FamilyManagerment extends Activity{
             }
             return super.onOptionsItemSelected(item);
         } else {
-            Toast.makeText(mContext, "Only the primary parent can edit a family group.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, getString(R.string.edit_family_permission_warning), Toast.LENGTH_LONG).show();
         }
         return false;
     }
@@ -608,16 +609,16 @@ public class FamilyManagerment extends Activity{
 
     public void renameGroup() {
         if (SetupWizardActivity.getModeDevice(mContext) == Constants.Manager) {
-            Toast.makeText(mContext, "Only the primary parent can edit a family group.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, getString(R.string.edit_family_permission_warning), Toast.LENGTH_LONG).show();
             return;
         }
         mView = getLayoutInflater().inflate(R.layout.edit_name_popup_layout, null);
         mEditText = (EditText) mView.findViewById(R.id.edit_name_edittext_popup);
         mTextMsg = (TextView) mView.findViewById(R.id.edit_name_text);
         mEditText.setText(MainUtils.parentGroupItem.getGroup_name());
-        mAlertDialog = new AlertDialog.Builder(this).setView(mView).setTitle("Edit name : ")
+        mAlertDialog = new AlertDialog.Builder(this).setView(mView).setTitle(getString(R.string.edit_family_name))
                 .setCancelable(false)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -629,7 +630,7 @@ public class FamilyManagerment extends Activity{
                             dialog.cancel();
                         }
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.cancel();

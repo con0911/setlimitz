@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.keepfocus.R;
 import com.android.keepfocus.activity.FamilyManagerment;
 import com.android.keepfocus.activity.LoginActivity;
 import com.android.keepfocus.activity.SetupWizardActivity;
@@ -96,7 +97,7 @@ public class LoginRequestController {
                         mContext.startActivity(groupManagement);
                     } else {
                         isSuccess = false;
-                        Toast.makeText(mContext, "Incorrect email or password.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, mContext.getString(R.string.error_email_password), Toast.LENGTH_LONG).show();
                         Intent login = new Intent(mContext, LoginActivity.class);
                         mContext.startActivity(login);
                     }
@@ -105,7 +106,7 @@ public class LoginRequestController {
                     //Toast.makeText(mContext, "Can't create new family! Error in database", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(mContext, "You are not connected to the internet.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.no_internet_warning), Toast.LENGTH_LONG).show();
                 LoginActivity loginActivity = (LoginActivity) mContext;
                 loginActivity.finish();
                 Intent login = new Intent(mContext, LoginActivity.class);
